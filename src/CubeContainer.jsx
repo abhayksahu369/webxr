@@ -1,6 +1,7 @@
 import {Canvas} from '@react-three/fiber'
 import {OrbitControls} from "@react-three/drei"
 import {XR,createXRStore} from "@react-three/xr"
+import Model from './Model'
 
 const store = createXRStore()
 
@@ -11,10 +12,13 @@ export default function CubeContainer() {
     <Canvas>
         <XR store={store}>
         <OrbitControls/>
-        <ambientLight/>
+        <directionalLight position={[5, 5, 5]} intensity={2} />
+        <pointLight position={[0, 2, 2]} intensity={1.5} />
+
         <mesh position-z={0}>
-            <boxGeometry args={[2,2,2]}/>
-            <meshStandardMaterial color={"mediumpurple"}/>
+            {/* <boxGeometry args={[2,2,2]}/> */}
+            <Model />
+            {/* <meshStandardMaterial color={"mediumpurple"}/> */}
         </mesh>
         </XR>
     </Canvas>
