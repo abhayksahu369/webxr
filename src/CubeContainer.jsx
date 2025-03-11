@@ -12,7 +12,7 @@ export default function CubeContainer() {
         <XR store={store}>
         <OrbitControls/>
         <ambientLight/>
-        <mesh position-z={-5}>
+        <mesh position-z={0}>
             <boxGeometry args={[2,2,2]}/>
             <meshStandardMaterial color={"mediumpurple"}/>
         </mesh>
