@@ -14,7 +14,7 @@ const Model = () => {
         <primitive
             object={gltf.scene}
             scale={0.1}
-            position={[0, -1, -3]}
+            position={[0, 0, 0]}
             rotation={rotation}
             onPointerDown={(event) => event.target.setPointerCapture(event.pointerId)}
             onPointerMove={handleDrag} // Rotate on drag
