@@ -2,7 +2,7 @@ import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useState } from "react";
 
-const Model = () => {
+const Model = ({position}) => {
     const gltf = useLoader(GLTFLoader, "factory.glb");
     const [rotation, setRotation] = useState([0, 0, 0]);
 
@@ -12,30 +12,38 @@ const Model = () => {
     const [hoveredPart, setHoveredPart] = useState(null);
 
     // 🔥 Hover Effect
-    const handlePointerOver = (e) => {
+    // const handlePointerOver = (e) => {
+    //     console.log(e);
+    //     console.log(e.object.name);
+    //     // e.stopPropagation();
+    //     // setHoveredPart(e.object.name);
+    //     e.object.material = e.object.material.clone();
+    //     e.object.material.color.set("red"); // Highlight only this part // Highlight in red
+    // };
+
+    // const handlePointerOut = (e) => {
+    //     e.stopPropagation();
+    //     // setHoveredPart(null);
+    //     e.object.material.color.set("white"); // Reset color
+    // };
+    const handlePointerDown=(e)=>{
         console.log(e);
-        console.log(e.object.name);
-        // e.stopPropagation();
+        console.log(e.object.material.color);
+        e.stopPropagation();
         // setHoveredPart(e.object.name);
         e.object.material = e.object.material.clone();
-        e.object.material.color.set("red"); // Highlight only this part // Highlight in red
-    };
-
-    const handlePointerOut = (e) => {
-        e.stopPropagation();
-        // setHoveredPart(null);
-        e.object.material.color.set("white"); // Reset color
-    };
-
+        e.object.material.color.set("red");
+    }
 
     return (
-        <group position={[0,0,-5]} scale={0.1}>
+        <group position={position} scale={0.3}>
             {gltf.scene.children.map((child) => (
                 <primitive 
                     key={child.name} 
                     object={child} 
-                    onPointerOver={handlePointerOver} 
-                    onPointerOut={handlePointerOut} 
+                    // onPointerOver={handlePointerOver} 
+                    // onPointerOut={handlePointerOut} 
+                    onPointerDown={handlePointerDown}
                 />
             ))}
             {/* {hoveredPart && (
