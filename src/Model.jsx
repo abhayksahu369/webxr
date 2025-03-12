@@ -76,7 +76,7 @@ const Model = ({ position, fault }) => {
                         <button onClick={moveForward} style={buttonStyle("gray")}>🔼 Forward</button>
                         <button onClick={moveBackward} style={buttonStyle("gray")}>🔽 Backward</button>
                     </div>
-                    <button onClick={()=>store.exitXR()} style={buttonStyle("red")}>
+                    <button onClick={()=>store.exitXR()} style={exitButtonStyle}>
                         Exit AR
                     </button>
                 </div>
@@ -86,26 +86,50 @@ const Model = ({ position, fault }) => {
 };
 
 // ✅ Button styling helper function
+// ✅ Button styling helper function for landscape mode
 const buttonStyle = (color) => ({
-    padding: "10px 15px",
+    padding: "12px 20px",
     margin: "5px",
-    fontSize: "14px",
+    fontSize: "16px",
     cursor: "pointer",
     background: color,
     color: "white",
     border: "none",
-    borderRadius: "5px",
+    borderRadius: "8px",
+    minWidth: "80px",
+    textAlign: "center"
 });
 
-// ✅ Container for buttons
+// ✅ Container styling for landscape mode
 const containerStyle = {
     position: "absolute",
-    top: 20,
-    left: 20,
+    bottom: 20,  // Moved buttons to the bottom for easy access
+    left: "50%",
+    transform: "translateX(-50%)",
     display: "flex",
-    flexDirection: "column",
-    gap: "5px"
+    flexWrap: "wrap",  // Buttons wrap if needed
+    justifyContent: "center",
+    gap: "10px",
+    background: "rgba(0, 0, 0, 0.5)", // Slight background for visibility
+    padding: "10px",
+    borderRadius: "10px",
 };
+
+// ✅ Exit AR button style (always fixed at bottom)
+const exitButtonStyle = {
+    position: "absolute",
+    bottom: 20,
+    left: "50%",
+    transform: "translateX(-50%)",
+    padding: "14px 24px",
+    fontSize: "18px",
+    cursor: "pointer",
+    background: "red",
+    color: "white",
+    border: "none",
+    borderRadius: "10px",
+};
+
 
 export default Model;
 
