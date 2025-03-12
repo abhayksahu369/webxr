@@ -2,8 +2,8 @@ import { useLoader, useFrame } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { HandleTarget, Handle } from "@react-three/handle";
 import { useRef, useState } from "react";
-import { XRDomOverlay } from "@react-three/xr";
-
+import { createXRStore, XRDomOverlay } from "@react-three/xr";
+const store = createXRStore();
 const Model = ({ position, fault }) => {
     const gltf = useLoader(GLTFLoader, "factory.glb");
     const modelRef = useRef();
@@ -76,7 +76,7 @@ const Model = ({ position, fault }) => {
                         <button onClick={moveForward} style={buttonStyle("gray")}>🔼 Forward</button>
                         <button onClick={moveBackward} style={buttonStyle("gray")}>🔽 Backward</button>
                     </div>
-                    <button onClick={()=>store.exitXR()} style={exitButtonStyle}>
+                    <button onClick={()=>store.exitXRSession()} style={exitButtonStyle}>
                         Exit AR
                     </button>
                 </div>
