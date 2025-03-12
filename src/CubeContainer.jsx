@@ -8,8 +8,8 @@ import { Handle, HandleTarget } from "@react-three/handle"
 const store = createXRStore();
 
 export default function CubeContainer() {
-  const [position, setPosition] = useState([0, 0, -1]); // Default position in front of the user
-  console.log(position);
+  const [position, setPosition] = useState([0, 0, -2]); // Default position in front of the user
+  
 
   return (
     <>
@@ -34,7 +34,7 @@ export default function CubeContainer() {
       
   
           
-                <Model position={position} />
+                <Model position={position} fault="pCylinder4_lambert1_0"/>
                
         </XR>
       </Canvas>
