@@ -76,6 +76,9 @@ const Model = ({ position, fault }) => {
                         <button onClick={moveForward} style={buttonStyle("gray")}>🔼 Forward</button>
                         <button onClick={moveBackward} style={buttonStyle("gray")}>🔽 Backward</button>
                     </div>
+                    <button onClick={()=>store.exitXR()} style={buttonStyle("red")}>
+                        Exit AR
+                    </button>
                 </div>
             </XRDomOverlay>
         </>
