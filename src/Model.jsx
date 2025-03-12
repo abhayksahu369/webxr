@@ -1,28 +1,17 @@
-import { useLoader, useFrame, useThree } from "@react-three/fiber";
+import { useLoader, useFrame } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { HandleTarget, Handle } from "@react-three/handle";
 import { useRef, useState } from "react";
-import { usePinch } from "@use-gesture/react";
 import { XRDomOverlay } from "@react-three/xr";
 
 const Model = ({ position, fault }) => {
     const gltf = useLoader(GLTFLoader, "factory.glb");
     const modelRef = useRef();
-    const { gl } = useThree(); // ✅ Get access to the canvas domElement
+    
+    // ✅ State for scale & position
     const [scale, setScale] = useState(0.06);
+    const [modelPosition, setModelPosition] = useState(position);
     const [isAnimating, setIsAnimating] = useState(true);
-
-    // ✅ Fix: Attach usePinch to gl.domElement (Canvas)
-    usePinch(
-        ({ offset: [d] }) => {
-            const newScale = Math.min(Math.max(0.03, d / 100), 0.2);
-            setScale(newScale);
-        },
-        {
-            target: gl.domElement, // ✅ Fix: Attach gesture to canvas
-            eventOptions: { passive: false },
-        }
-    );
 
     // ✅ Rotation animation (controlled)
     useFrame(() => {
@@ -39,41 +28,80 @@ const Model = ({ position, fault }) => {
         }
     });
 
-    // ✅ Function to toggle animation
-    const toggleAnimation = () => {
-        setIsAnimating((prev) => !prev);
-    };
+    // ✅ Functions to manually change scale
+    const increaseSize = () => setScale((prev) => Math.min(prev + 0.01, 0.2));
+    const decreaseSize = () => setScale((prev) => Math.max(prev - 0.01, 0.03));
+
+    // ✅ Functions to manually change position
+    const moveLeft = () => setModelPosition((prev) => [prev[0] - 0.1, prev[1], prev[2]]);
+    const moveRight = () => setModelPosition((prev) => [prev[0] + 0.1, prev[1], prev[2]]);
+    const moveUp = () => setModelPosition((prev) => [prev[0], prev[1] + 0.1, prev[2]]);
+    const moveDown = () => setModelPosition((prev) => [prev[0], prev[1] - 0.1, prev[2]]);
+    const moveForward = () => setModelPosition((prev) => [prev[0], prev[1], prev[2] - 0.1]);
+    const moveBackward = () => setModelPosition((prev) => [prev[0], prev[1], prev[2] + 0.1]);
+
+    // ✅ Toggle animation
+    const toggleAnimation = () => setIsAnimating((prev) => !prev);
 
     return (
         <>
             <HandleTarget>
                 <Handle>
-                    <primitive ref={modelRef} object={gltf.scene} position={position} scale={scale} />
+                    <primitive ref={modelRef} object={gltf.scene} position={modelPosition} scale={scale} />
                 </Handle>
             </HandleTarget>
 
-            {/* ✅ Button to Start/Stop Animation */}
+            {/* ✅ UI Controls */}
             <XRDomOverlay>
-                <button
-                    onClick={toggleAnimation}
-                    style={{
-                        position: "absolute",
-                        top: 20,
-                        left: 20,
-                        padding: "10px 20px",
-                        fontSize: "16px",
-                        cursor: "pointer",
-                        background: isAnimating ? "red" : "green",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "5px",
-                    }}
-                >
-                    {isAnimating ? "Pause" : "Play"}
-                </button>
+                <div style={containerStyle}>
+                    {/* Rotation Control */}
+                    <button onClick={toggleAnimation} style={buttonStyle(isAnimating ? "red" : "green")}>
+                        {isAnimating ? "Pause" : "Play"}
+                    </button>
+
+                    {/* Scale Control */}
+                    <button onClick={increaseSize} style={buttonStyle("blue")}>➕ Increase</button>
+                    <button onClick={decreaseSize} style={buttonStyle("orange")}>➖ Decrease</button>
+
+                    {/* Position Control */}
+                    <div>
+                        <button onClick={moveLeft} style={buttonStyle("gray")}>⬅ Left</button>
+                        <button onClick={moveRight} style={buttonStyle("gray")}>➡ Right</button>
+                    </div>
+                    <div>
+                        <button onClick={moveUp} style={buttonStyle("gray")}>⬆ Up</button>
+                        <button onClick={moveDown} style={buttonStyle("gray")}>⬇ Down</button>
+                    </div>
+                    <div>
+                        <button onClick={moveForward} style={buttonStyle("gray")}>🔼 Forward</button>
+                        <button onClick={moveBackward} style={buttonStyle("gray")}>🔽 Backward</button>
+                    </div>
+                </div>
             </XRDomOverlay>
         </>
     );
+};
+
+// ✅ Button styling helper function
+const buttonStyle = (color) => ({
+    padding: "10px 15px",
+    margin: "5px",
+    fontSize: "14px",
+    cursor: "pointer",
+    background: color,
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+});
+
+// ✅ Container for buttons
+const containerStyle = {
+    position: "absolute",
+    top: 20,
+    left: 20,
+    display: "flex",
+    flexDirection: "column",
+    gap: "5px"
 };
 
 export default Model;
