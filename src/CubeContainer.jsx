@@ -8,7 +8,7 @@ import { Handle, HandleTarget } from "@react-three/handle"
 const store = createXRStore();
 
 export default function CubeContainer() {
-  const [position, setPosition] = useState([0, 0, -2]); // Default position in front of the user
+  const [position, setPosition] = useState([0, 0, -5]); // Default position in front of the user
   
 
   return (
