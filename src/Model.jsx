@@ -17,10 +17,12 @@ const Model = ({ position }) => {
 
     return (
         <HandleTarget>
-            <Handle>
-                <group ref={modelRef} position={position} scale={0.08} >
-                    <primitive object={gltf.scene} />
-                </group>
+            <Handle rotate={{ x: false, y: true, z: false }}>
+            <group ref={modelRef} position={position} scale={0.08}>
+             {gltf.scene.children.map((child) => (
+                <primitive key={child.name} object={child} />
+            ))}
+        </group>
             </Handle>
         </HandleTarget>
     );
