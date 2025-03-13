@@ -1,9 +1,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { PivotHandles, TransformHandles } from "@react-three/handle";
 
 
-export default function Video() {
+export default function Video({position}) {
+    console.log(position)
   const videoRef = useRef(null);
   const [videoTexture, setVideoTexture] = useState(null);
 
@@ -23,21 +25,25 @@ export default function Video() {
 
   return (
     <>
+       <PivotHandles position={position} size={0.5}>
+        <group>
       {videoTexture && (
-        <mesh position={[0, 1.5, -2]}>
+        <mesh  scale={0.4}>
           <planeGeometry args={[3, 2]} />
           <meshBasicMaterial map={videoTexture} toneMapped={false} />
         </mesh>
       )}
       {/* Video Controls */}
-      <mesh position={[0, 0.5, -1.9]} onClick={() => videoRef.current.play()}>
-        <boxGeometry args={[0.5, 0.2, 0.1]} />
+      <mesh position={[-0.1,-0.5,0]} onClick={() => videoRef.current.play()}>
+        <boxGeometry args={[0.2, 0.1, 0.1]} />
         <meshBasicMaterial color="green" />
       </mesh>
-      <mesh position={[1, 0.5, -1.9]} onClick={() => videoRef.current.pause()}>
-        <boxGeometry args={[0.5, 0.2, 0.1]} />
+      <mesh position={[0.1,-0.5,0]} onClick={() => videoRef.current.pause()}>
+        <boxGeometry args={[0.2, 0.1, 0.1]} />
         <meshBasicMaterial color="red" />
       </mesh>
+      </group>
+      </PivotHandles>
     </>
   );
 }

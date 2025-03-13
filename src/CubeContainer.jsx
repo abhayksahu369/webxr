@@ -1,25 +1,23 @@
 import { Canvas,useLoader } from "@react-three/fiber";
-import { OrbitControls ,Image} from "@react-three/drei";
+import { OrbitControls} from "@react-three/drei";
 import { XR, PointerEvents, XRDomOverlay, createXRStore } from "@react-three/xr";
 import { useState } from "react";
 import Model from "./Model";
-import {TransformHandles,PivotHandles} from "@react-three/handle"
 import * as THREE from "three";
 import Video from "./Video";
 const store = createXRStore();
 
 
 export default function CubeContainer() {
-  const [position, setPosition] = useState([0, 0, -3]); // Default position in front of the user
-  const texture = useLoader(THREE.TextureLoader, "/3ds.jpg");
+  const [position, setPosition] = useState([0, 0, -1]); // Default position in front of the user
 
 
 
   return (
     <>
-      
-        <button onClick={()=>store.enterAR()} >Enter AR</button>
-      
+
+      <button onClick={() => store.enterAR()} >Enter AR</button>
+
 
       <Canvas >
         <XR store={store}>
@@ -29,16 +27,7 @@ export default function CubeContainer() {
           <directionalLight position={[5, 5, 5]} intensity={2} />
           <directionalLight position={[-5, -5, 5]} intensity={1.5} />
           <pointLight position={[0, 2, 2]} intensity={1.5} />
-          <Video/>
-          <TransformHandles position={[0,0,-3]}>
-            {/* <Image url="/3ds.jpg" scale={[3, 2, 1]} />; */}
-            <mesh >
-            <planeGeometry args={[5, 3]} />
-            <meshBasicMaterial map={texture} />
-            </mesh>
-          </TransformHandles>
-             
-            <Model position={position} fault="pCylinder4_lambert1_0" />
+          <Model position={position} fault="pasted__pCylinder2_lambert1_0001" />
         </XR>
       </Canvas>
     </>

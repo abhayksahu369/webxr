@@ -1,35 +1,126 @@
-import { useLoader } from "@react-three/fiber";
+import { useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
+import { PivotHandles, TransformHandles } from "@react-three/handle";
 import { useAnimations } from "@react-three/drei";
-import {TransformHandles,PivotHandles} from "@react-three/handle"
+import Image from "./Image";
+import Video from "./Video";
 
-const AnimatedModel = () => {
-    // Load model and animations
+const AnimatedModel = ({ position,fault }) => {
+   const[show,setShow]=useState(false);
+   const[imgPos,setImgPos]=useState();
+   const[vidPos,setVidPos]=useState();
+   
     const gltf = useLoader(GLTFLoader, "factory.glb");
     const modelRef = useRef();
+    
+
+    // Change the color of the faulty part
+    gltf.scene.traverse((child) => {
+                if (child.isMesh && child.name === fault) {
+                    child.material = child.material.clone();
+                    child.material.color.set("red");
+                }
+            });
+
     const { animations } = gltf;
     const { actions } = useAnimations(animations, modelRef);
 
-    useEffect(() => {
-        if (actions && animations.length > 0) {
-            actions[animations[0].name]?.play(); // Play first animation
-            console.log("Animation Started:", animations[0].name);
-        } else {
-            console.log("No animations found in model.");
+    // useEffect(() => {
+    //     if (actions && animations.length > 0) {
+    //         actions[animations[0].name]?.play(); // Play first animation
+    //         console.log("Animation Started:", animations[0].name);
+    //     } else {
+    //         console.log("No animations found in model.");
+    //     }
+    // }, [actions, animations]);
+   
+    const handlePointerDown=(e)=>{
+        e.stopPropagation();
+        if(e.object.name===fault){
+            console.log("falty region touched");
+            setShow(true);
+            setImgPos([position[0],position[1]+1,position[2]])
+            setVidPos([position[0]+1,position[1]+1,position[2]])
         }
-    }, [actions, animations]);
+    
+    
+    }
 
-    return(
-        <TransformHandles position={[0,0,4]}>
-            <PivotHandles>
-            <primitive ref={modelRef} object={gltf.scene} scale={0.06} />;
-            </PivotHandles>
-        </TransformHandles>
-    ) 
+    return (
+        
+     
+        <> 
+        
+            {show?(
+                <>
+                <Image position={imgPos}/>
+                <Video position={vidPos}/>
+                
+                </>
+            ):<></> } 
+        
+        <PivotHandles position={position}  size={0.5} >
+             <primitive  object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown} />
+        </PivotHandles>
+        
+        </>
+        
+    );
 };
 
 export default AnimatedModel;
+
+
+// import { useLoader } from "@react-three/fiber";
+// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+// import { useRef, useEffect } from "react";
+// import { useAnimations } from "@react-three/drei";
+// import {TransformHandles,PivotHandles} from "@react-three/handle"
+
+// const AnimatedModel = ({position,fault}) => {
+//     // Load model and animations
+//     const gltf = useLoader(GLTFLoader, "factory.glb");
+//     console.log(gltf)
+//     const modelRef = useRef();
+//     const { animations } = gltf;
+//     const { actions } = useAnimations(animations, modelRef);
+
+//     // useEffect(() => {
+//     //     if (actions && animations.length > 0) {
+//     //         actions[animations[0].name]?.play(); // Play first animation
+//     //         console.log("Animation Started:", animations[0].name);
+//     //     } else {
+//     //         console.log("No animations found in model.");
+//     //     }
+//     // }, [actions, animations]);
+
+//     return(
+        
+            
+//             <group ref={modelRef}  scale={0.06}>
+//             {gltf.scene.traverse((child) => {
+//                 console.log(child)
+//                 if (child.isMesh && child.name === fault) {
+//              child.material = child.material.clone();
+//              child.material.color.set("red");
+//             //  return(
+//             //     <TransformHandles>
+//             //         <primitive key={child.name} object={child} />
+//             //     </TransformHandles>
+
+//             //  )
+//                }
+//                return <primitive key={child.name} object={child} />
+               
+//             }
+//         )}
+//          </group>
+            
+//     ) 
+// };
+
+// export default AnimatedModel;
 
 
 
