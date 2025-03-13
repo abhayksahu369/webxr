@@ -30,15 +30,15 @@ export default function CubeContainer() {
           <directionalLight position={[-5, -5, 5]} intensity={1.5} />
           <pointLight position={[0, 2, 2]} intensity={1.5} />
           <Video/>
-          <TransformHandles>
+          <TransformHandles position={[0,0,-3]}>
             {/* <Image url="/3ds.jpg" scale={[3, 2, 1]} />; */}
-            <mesh position={[0,0,-3]}>
+            <mesh >
             <planeGeometry args={[5, 3]} />
             <meshBasicMaterial map={texture} />
             </mesh>
           </TransformHandles>
              
-            {/* <Model position={position} fault="pCylinder4_lambert1_0" /> */}
+            <Model position={position} fault="pCylinder4_lambert1_0" />
         </XR>
       </Canvas>
     </>

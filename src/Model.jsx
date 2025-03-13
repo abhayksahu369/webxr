@@ -21,9 +21,9 @@ const AnimatedModel = () => {
     }, [actions, animations]);
 
     return(
-        <TransformHandles>
+        <TransformHandles position={[0,0,4]}>
             <PivotHandles>
-            <primitive ref={modelRef} object={gltf.scene} scale={0.06} position={[0,0,-2]}/>;
+            <primitive ref={modelRef} object={gltf.scene} scale={0.06} />;
             </PivotHandles>
         </TransformHandles>
     ) 
