@@ -2,6 +2,7 @@ import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useRef, useEffect } from "react";
 import { useAnimations } from "@react-three/drei";
+import {TransformHandles,PivotHandles} from "@react-three/handle"
 
 const AnimatedModel = () => {
     // Load model and animations
@@ -19,7 +20,13 @@ const AnimatedModel = () => {
         }
     }, [actions, animations]);
 
-    return <primitive ref={modelRef} object={gltf.scene} scale={0.06} />;
+    return(
+        <TransformHandles>
+            <PivotHandles>
+            <primitive ref={modelRef} object={gltf.scene} scale={0.06} position={[0,0,-2]}/>;
+            </PivotHandles>
+        </TransformHandles>
+    ) 
 };
 
 export default AnimatedModel;
