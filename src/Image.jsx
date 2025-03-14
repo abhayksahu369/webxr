@@ -36,7 +36,7 @@ export default function Image({position,scale}) {
       </mesh>
         <mesh scale={0.1}>
             <planeGeometry args={[5, 3]}  />
-            <meshBasicMaterial map={textureRef.current} side={THREE.DoubleSide}/>
+            <meshBasicMaterial map={textureRef.current} side={THREE.DoubleSide} depthWrite={false}/>
         </mesh>
    </PivotHandles>
   )
