@@ -30,7 +30,7 @@ export default function Video({position}) {
       {videoTexture && (
         <mesh  scale={0.2}>
           <planeGeometry args={[3, 2]} />
-          <meshBasicMaterial map={videoTexture} toneMapped={false} side={THREE.DoubleSide}/>
+          <meshBasicMaterial map={videoTexture} depthTest={false} toneMapped={false} side={THREE.DoubleSide}/>
         </mesh>
       )}
       {/* Video Controls */}
