@@ -6,11 +6,11 @@ import Model from "./Model";
 import * as THREE from "three";
 import Video from "./Video";
 import XrHitModel from "./XrHitModel";
-const store = createXRStore({meshDetection:false});
+const store = createXRStore();
 
 
-export default function ModelContainer() {
-  const [position, setPosition] = useState([0, 0, -2]); // Default position in front of the user
+export default function ModelContainer({position}) {
+  // const [position, setPosition] = useState([0, 0, -1]); // Default position in front of the user
   return (
     <>
       <button onClick={() => store.enterAR()} >Enter AR</button>
@@ -23,8 +23,8 @@ export default function ModelContainer() {
           <directionalLight position={[-5, -5, 5]} intensity={1.5} />
           <pointLight position={[0, 2, 2]} intensity={1.5} />
           
-          <Model position={position} fault="pasted__pCylinder2_lambert1_0001" />
-          {/* <XrHitModel/> */}
+          {/* <Model position={position} fault="pasted__pCylinder2_lambert1_0001" /> */}
+          <XrHitModel/>
 
         </XR>
       </Canvas>

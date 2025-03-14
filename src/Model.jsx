@@ -9,7 +9,7 @@ import { useXR, XRDomOverlay } from "@react-three/xr";
 
 const AnimatedModel = ({position,fault }) => {
     console.log(position)
-   const[show,setShow]=useState(false);
+   const[showIns,setShowIns]=useState(false);
    const[imgPos,setImgPos]=useState();
    const[vidPos,setVidPos]=useState();
    const [isPlaying, setIsPlaying] = useState(false);
@@ -48,23 +48,21 @@ const AnimatedModel = ({position,fault }) => {
         setIsPlaying(!isPlaying);
       };
     
-      const resetModel = () => {
-        if (actions[animations[0].name]) {
-          actions[animations[0].name]?.stop(); // Stop animation
-        }
-        gltf.scene.position.set(0, 0, 0); // Reset position
-        gltf.scene.rotation.set(0, 0, 0); // Reset rotation
-        gltf.scene.scale.set(1, 1, 1); // Reset scale
-        setIsPlaying(false);
-      };
+      // const resetModel = () => {
+      //   if (actions[animations[0].name]) {
+      //     actions[animations[0].name]?.stop(); // Stop animation
+      //   }
+      //   gltf.scene.position.set(0, 0, 0); // Reset position
+      //   gltf.scene.rotation.set(0, 0, 0); // Reset rotation
+      //   gltf.scene.scale.set(1, 1, 1); // Reset scale
+      //   setIsPlaying(false);
+      // };
    
     const handlePointerDown=(e)=>{
         e.stopPropagation();
         if(e.object.name===fault){
             console.log("falty region touched");
-            setShow(true);
-            setImgPos([position[0],position[1]+1,position[2]])
-            setVidPos([position[0]+0.7,position[1]+1,position[2]])
+            setShowIns(true);
         }
     
     
@@ -81,22 +79,22 @@ const AnimatedModel = ({position,fault }) => {
      
         <> 
         
-        
-            {show?(
+        <group ref={modelRef} position={position}>
+            {showIns?(
                 <>
-                <Image position={imgPos}/>
-                <Video position={vidPos}/>
+                <Image position={[0,1,0]}/>
+                <Video position={[0.7,1,0]}/>
                 
                 </>
             ):<></> } 
         
-        <group ref={modelRef} position={positionRef.current}>
+        
           {showHandles ? (
             <PivotHandles  size={0.5}>
-              <primitive object={gltf.scene} scale={0.02} onPointerDown={handlePointerDown} />
+              <primitive object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown} />
             </PivotHandles>
           ) : (
-            <primitive object={gltf.scene} scale={0.02} onPointerDown={handlePointerDown}/>
+            <primitive object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown}/>
           )}
         </group>
         <XRDomOverlay>
@@ -116,7 +114,7 @@ const AnimatedModel = ({position,fault }) => {
             <button onClick={toggleAnimation}>
               {isPlaying ? "Pause Animation" : "Play Animation"}
             </button>
-            <button onClick={resetModel}>Reset Model</button>
+            {/* <button onClick={resetModel}>Reset Model</button> */}
             <button onClick={toggleHandles}>{showHandles?"done":"adjust"}</button>
             <button onClick={exitAR}>EXIT</button>
           </div>
