@@ -9,7 +9,7 @@ const store = createXRStore();
 
 
 export default function ModelContainer() {
-  const [position, setPosition] = useState([0, 0, -1]); // Default position in front of the user
+  const [position, setPosition] = useState([0, 0, -2]); // Default position in front of the user
   return (
     <>
       <button onClick={() => store.enterAR()} >Enter AR</button>
