@@ -1,6 +1,6 @@
 import { Canvas,useLoader } from "@react-three/fiber";
 import { OrbitControls} from "@react-three/drei";
-import { XR, PointerEvents, XRDomOverlay, createXRStore } from "@react-three/xr";
+import { XR, PointerEvents, XRDomOverlay, createXRStore,useXR } from "@react-three/xr";
 import { useState } from "react";
 import Model from "./Model";
 import * as THREE from "three";
@@ -10,6 +10,7 @@ const store = createXRStore();
 
 export default function CubeContainer() {
   const [position, setPosition] = useState([0, 0, -1]); // Default position in front of the user
+  
 
 
 
@@ -27,6 +28,7 @@ export default function CubeContainer() {
           <directionalLight position={[5, 5, 5]} intensity={2} />
           <directionalLight position={[-5, -5, 5]} intensity={1.5} />
           <pointLight position={[0, 2, 2]} intensity={1.5} />
+          
           <Model position={position} fault="pasted__pCylinder2_lambert1_0001" />
         </XR>
       </Canvas>

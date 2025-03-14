@@ -5,11 +5,19 @@ import { PivotHandles, TransformHandles } from "@react-three/handle";
 import { useAnimations } from "@react-three/drei";
 import Image from "./Image";
 import Video from "./Video";
+import { useXR, XRDomOverlay } from "@react-three/xr";
 
 const AnimatedModel = ({ position,fault }) => {
+    console.log("model component re render")
    const[show,setShow]=useState(false);
    const[imgPos,setImgPos]=useState();
    const[vidPos,setVidPos]=useState();
+   const {session}=useXR();
+     console.log(session)
+     const exitAR = () => {
+       if (session) session.end();
+     };
+   
    
     const gltf = useLoader(GLTFLoader, "factory.glb");
     const modelRef = useRef();
@@ -52,6 +60,7 @@ const AnimatedModel = ({ position,fault }) => {
      
         <> 
         
+        
             {show?(
                 <>
                 <Image position={imgPos}/>
@@ -63,6 +72,10 @@ const AnimatedModel = ({ position,fault }) => {
         <PivotHandles position={position}  size={0.5} >
              <primitive  object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown} />
         </PivotHandles>
+        <XRDomOverlay>
+
+                        <button onClick={exitAR}>EXIT</button>
+        </XRDomOverlay>
         
         </>
         
