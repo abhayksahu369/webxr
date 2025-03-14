@@ -13,7 +13,9 @@ const AnimatedModel = ({ position,fault }) => {
    const[imgPos,setImgPos]=useState();
    const[vidPos,setVidPos]=useState();
    const [isPlaying, setIsPlaying] = useState(false);
+   const [showHandles, setShowHandles] = useState(true);
    const {session}=useXR();
+   const positionRef = useRef(position);
    
 
 
@@ -67,6 +69,12 @@ const AnimatedModel = ({ position,fault }) => {
     
     
     }
+    const toggleHandles = () => {
+        if (modelRef.current) {
+          positionRef.current = modelRef.current.position.toArray(); // Store current position
+        }
+        setShowHandles((prev) => !prev);
+      };
 
     return (
         
@@ -82,9 +90,15 @@ const AnimatedModel = ({ position,fault }) => {
                 </>
             ):<></> } 
         
-        <PivotHandles position={position}  size={0.5} >
-             <primitive ref={modelRef} object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown} />
-        </PivotHandles>
+        <group ref={modelRef} position={positionRef.current}>
+          {showHandles ? (
+            <PivotHandles position={positionRef.current} size={0.5}>
+              <primitive object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown} />
+            </PivotHandles>
+          ) : (
+            <primitive object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown}/>
+          )}
+        </group>
         <XRDomOverlay>
           <div
             style={{
@@ -103,6 +117,7 @@ const AnimatedModel = ({ position,fault }) => {
               {isPlaying ? "Pause Animation" : "Play Animation"}
             </button>
             <button onClick={resetModel}>Reset Model</button>
+            <button onClick={toggleHandles}>{showHandles?"done":"adjust"}</button>
             <button onClick={exitAR}>EXIT</button>
           </div>
         </XRDomOverlay>
