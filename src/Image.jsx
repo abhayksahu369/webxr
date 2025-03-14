@@ -27,7 +27,7 @@ export default function Image({position,scale}) {
     <PivotHandles position={position}  scale={false} size={0.5}>
       <mesh position={[-0.1, -0.2, 0]} onClick={prevImage}>
         <boxGeometry args={[0.15, 0.09, 0.1]} />
-        <meshBasicMaterial color="blue" />
+        <meshBasicMaterial color="blue"  />
       </mesh>
 
       <mesh position={[0.1, -0.2, 0]} onClick={nextImage}>
@@ -36,7 +36,7 @@ export default function Image({position,scale}) {
       </mesh>
         <mesh scale={0.1}>
             <planeGeometry args={[5, 3]}  />
-            <meshBasicMaterial map={textureRef.current} />
+            <meshBasicMaterial map={textureRef.current} side={THREE.DoubleSide}/>
         </mesh>
    </PivotHandles>
   )

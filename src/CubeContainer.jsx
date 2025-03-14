@@ -21,7 +21,7 @@ export default function CubeContainer() {
 
 
       <Canvas >
-        <XR store={store}>
+        <XR store={store}  sessionInit={{ optionalFeatures: ["depth-sensing"] }}>
           <OrbitControls />
           <PointerEvents />
           <ambientLight intensity={0.5} />

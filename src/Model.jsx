@@ -12,8 +12,11 @@ const AnimatedModel = ({ position,fault }) => {
    const[show,setShow]=useState(false);
    const[imgPos,setImgPos]=useState();
    const[vidPos,setVidPos]=useState();
+   const [isPlaying, setIsPlaying] = useState(false);
    const {session}=useXR();
-     console.log(session)
+   
+
+
      const exitAR = () => {
        if (session) session.end();
      };
@@ -34,14 +37,24 @@ const AnimatedModel = ({ position,fault }) => {
     const { animations } = gltf;
     const { actions } = useAnimations(animations, modelRef);
 
-    // useEffect(() => {
-    //     if (actions && animations.length > 0) {
-    //         actions[animations[0].name]?.play(); // Play first animation
-    //         console.log("Animation Started:", animations[0].name);
-    //     } else {
-    //         console.log("No animations found in model.");
-    //     }
-    // }, [actions, animations]);
+    const toggleAnimation = () => {
+        if (isPlaying) {
+          actions[animations[0].name]?.stop();
+        } else {
+          actions[animations[0].name]?.play();
+        }
+        setIsPlaying(!isPlaying);
+      };
+    
+      const resetModel = () => {
+        if (actions[animations[0].name]) {
+          actions[animations[0].name]?.stop(); // Stop animation
+        }
+        gltf.scene.position.set(0, 0, 0); // Reset position
+        gltf.scene.rotation.set(0, 0, 0); // Reset rotation
+        gltf.scene.scale.set(1, 1, 1); // Reset scale
+        setIsPlaying(false);
+      };
    
     const handlePointerDown=(e)=>{
         e.stopPropagation();
@@ -70,12 +83,30 @@ const AnimatedModel = ({ position,fault }) => {
             ):<></> } 
         
         <PivotHandles position={position}  size={0.5} >
-             <primitive  object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown} />
+             <primitive ref={modelRef} object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown} />
         </PivotHandles>
         <XRDomOverlay>
-
-                        <button onClick={exitAR}>EXIT</button>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 20,
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              gap: "10px",
+              background: "rgba(0, 0, 0, 0.5)",
+              padding: "10px",
+              borderRadius: "10px",
+            }}
+          >
+            <button onClick={toggleAnimation}>
+              {isPlaying ? "Pause Animation" : "Play Animation"}
+            </button>
+            <button onClick={resetModel}>Reset Model</button>
+            <button onClick={exitAR}>EXIT</button>
+          </div>
         </XRDomOverlay>
+
         
         </>
         
