@@ -6,7 +6,7 @@ import Model from "./Model";
 import * as THREE from "three";
 import Video from "./Video";
 import XrHitModel from "./XrHitModel";
-const store = createXRStore();
+const store = createXRStore({meshDetection:false});
 
 
 export default function ModelContainer() {
@@ -23,8 +23,8 @@ export default function ModelContainer() {
           <directionalLight position={[-5, -5, 5]} intensity={1.5} />
           <pointLight position={[0, 2, 2]} intensity={1.5} />
           
-          {/* <Model position={position} fault="pasted__pCylinder2_lambert1_0001" /> */}
-          <XrHitModel/>
+          <Model position={position} fault="pasted__pCylinder2_lambert1_0001" />
+          {/* <XrHitModel/> */}
 
         </XR>
       </Canvas>
