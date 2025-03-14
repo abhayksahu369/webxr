@@ -92,11 +92,11 @@ const AnimatedModel = ({ position,fault }) => {
         
         <group ref={modelRef} position={positionRef.current}>
           {showHandles ? (
-            <PivotHandles position={positionRef.current} size={0.5}>
-              <primitive object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown} />
+            <PivotHandles  size={0.5}>
+              <primitive object={gltf.scene} scale={0.03} onPointerDown={handlePointerDown} />
             </PivotHandles>
           ) : (
-            <primitive object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown}/>
+            <primitive object={gltf.scene} scale={0.03} onPointerDown={handlePointerDown}/>
           )}
         </group>
         <XRDomOverlay>

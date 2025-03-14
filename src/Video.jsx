@@ -28,7 +28,7 @@ export default function Video({position}) {
        <PivotHandles position={position} size={0.5}>
         <group>
       {videoTexture && (
-        <mesh  scale={0.4}>
+        <mesh  scale={0.2}>
           <planeGeometry args={[3, 2]} />
           <meshBasicMaterial map={videoTexture} toneMapped={false} side={THREE.DoubleSide}/>
         </mesh>
