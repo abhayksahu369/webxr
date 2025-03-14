@@ -9,7 +9,7 @@ const store = createXRStore();
 
 
 export default function CubeContainer() {
-  const [position, setPosition] = useState([0, 0, -1]); // Default position in front of the user
+  const [position, setPosition] = useState([0, 0, -0.5]); // Default position in front of the user
   
 
 
