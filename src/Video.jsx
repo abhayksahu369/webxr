@@ -28,17 +28,17 @@ export default function Video({position}) {
        <PivotHandles position={position} size={0.5}>
         <group>
       {videoTexture && (
-        <mesh  scale={0.1}>
+        <mesh  scale={0.2}>
           <planeGeometry args={[3, 2]} />
           <meshBasicMaterial map={videoTexture} depthWrite={false} toneMapped={false} side={THREE.DoubleSide}/>
         </mesh>
       )}
       {/* Video Controls */}
-      <mesh position={[-0.1,-0.5,0]} onClick={() => videoRef.current.play()}>
+      <mesh position={[-0.1,-0.3,0]} onClick={() => videoRef.current.play()}>
         <boxGeometry args={[0.2, 0.1, 0.1]} />
         <meshBasicMaterial color="green" />
       </mesh>
-      <mesh position={[0.1,-0.5,0]} onClick={() => videoRef.current.pause()}>
+      <mesh position={[0.1,-0.3,0]} onClick={() => videoRef.current.pause()}>
         <boxGeometry args={[0.2, 0.1, 0.1]} />
         <meshBasicMaterial color="red" />
       </mesh>

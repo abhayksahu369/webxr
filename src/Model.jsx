@@ -7,16 +7,15 @@ import Image from "./Image";
 import Video from "./Video";
 import { useXR, XRDomOverlay } from "@react-three/xr";
 
-const AnimatedModel = ({ position,fault }) => {
-    console.log("model component re render")
+const AnimatedModel = ({position,fault }) => {
+    console.log(position)
    const[show,setShow]=useState(false);
    const[imgPos,setImgPos]=useState();
    const[vidPos,setVidPos]=useState();
    const [isPlaying, setIsPlaying] = useState(false);
-   const [currPos, setCurrPos] = useState(position);
    const [showHandles, setShowHandles] = useState(true);
    const {session}=useXR();
-   
+   const positionRef = useRef(position);
    
 
 
@@ -49,15 +48,15 @@ const AnimatedModel = ({ position,fault }) => {
         setIsPlaying(!isPlaying);
       };
     
-    //   const resetModel = () => {
-    //     if (actions[animations[0].name]) {
-    //       actions[animations[0].name]?.stop(); // Stop animation
-    //     }
-    //     gltf.scene.position.set(0, 0, 0); // Reset position
-    //     gltf.scene.rotation.set(0, 0, 0); // Reset rotation
-    //     gltf.scene.scale.set(1, 1, 1); // Reset scale
-    //     setIsPlaying(false);
-    //   };
+      const resetModel = () => {
+        if (actions[animations[0].name]) {
+          actions[animations[0].name]?.stop(); // Stop animation
+        }
+        gltf.scene.position.set(0, 0, 0); // Reset position
+        gltf.scene.rotation.set(0, 0, 0); // Reset rotation
+        gltf.scene.scale.set(1, 1, 1); // Reset scale
+        setIsPlaying(false);
+      };
    
     const handlePointerDown=(e)=>{
         e.stopPropagation();
@@ -65,14 +64,14 @@ const AnimatedModel = ({ position,fault }) => {
             console.log("falty region touched");
             setShow(true);
             setImgPos([position[0],position[1]+1,position[2]])
-            setVidPos([position[0]+1,position[1]+1,position[2]])
+            setVidPos([position[0]+0.7,position[1]+1,position[2]])
         }
     
     
     }
     const toggleHandles = () => {
         if (modelRef.current) {
-          setCurrPos(modelRef.current.position.toArray()); // Store current position
+          positionRef.current = modelRef.current.position.toArray(); // Store current position
         }
         setShowHandles((prev) => !prev);
       };
@@ -91,7 +90,7 @@ const AnimatedModel = ({ position,fault }) => {
                 </>
             ):<></> } 
         
-        <group ref={modelRef} position={currPos}>
+        <group ref={modelRef} position={positionRef.current}>
           {showHandles ? (
             <PivotHandles  size={0.5}>
               <primitive object={gltf.scene} scale={0.02} onPointerDown={handlePointerDown} />
@@ -117,7 +116,7 @@ const AnimatedModel = ({ position,fault }) => {
             <button onClick={toggleAnimation}>
               {isPlaying ? "Pause Animation" : "Play Animation"}
             </button>
-            {/* <button onClick={resetModel}>Reset Model</button> */}
+            <button onClick={resetModel}>Reset Model</button>
             <button onClick={toggleHandles}>{showHandles?"done":"adjust"}</button>
             <button onClick={exitAR}>EXIT</button>
           </div>
