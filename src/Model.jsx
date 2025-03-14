@@ -1,7 +1,7 @@
 import { useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useRef, useEffect, useState, useMemo } from "react";
-import { PivotHandles, TransformHandles } from "@react-three/handle";
+import { PivotHandles } from "@react-three/handle";
 import { useAnimations } from "@react-three/drei";
 import Image from "./Image";
 import Video from "./Video";

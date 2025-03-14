@@ -25,9 +25,9 @@ export default function Image({position,scale}) {
   
   return (
     <PivotHandles position={position}  scale={false} size={0.5}>
-      <mesh position={[-0.1, -0.2, 0]} onClick={prevImage}>
+      <mesh position={[-0.1, -0.2, 0]} onClick={prevImage} renderOrder={1}>
         <boxGeometry args={[0.15, 0.09, 0.1]} />
-        <meshBasicMaterial color="blue"  />
+        <meshBasicMaterial color="blue"  depthTest={false} />
       </mesh>
 
       <mesh position={[0.1, -0.2, 0]} onClick={nextImage}>

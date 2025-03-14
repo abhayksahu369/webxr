@@ -1,13 +1,13 @@
-import { useState } from 'react'
+
 import './App.css'
-import XrHitModelContainer from './XrHitModelContainer'
+import ModelContainer from './ModelContainer'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <>
-     <XrHitModelContainer/>
+     <ModelContainer/>
     </>
   )
 }

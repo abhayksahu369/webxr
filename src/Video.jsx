@@ -28,9 +28,9 @@ export default function Video({position}) {
        <PivotHandles position={position} size={0.5}>
         <group>
       {videoTexture && (
-        <mesh  scale={0.2}>
-          <planeGeometry args={[3, 2]} />
-          <meshBasicMaterial map={videoTexture} depthWrite={false} toneMapped={false} side={THREE.DoubleSide}/>
+        <mesh  scale={0.2} renderOrder={1}>
+          <planeGeometry args={[3, 2]}  />
+          <meshBasicMaterial map={videoTexture} depthWrite={false} toneMapped={false} side={THREE.DoubleSide} depthTest={false}/>
         </mesh>
       )}
       {/* Video Controls */}
