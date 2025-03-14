@@ -13,9 +13,10 @@ const AnimatedModel = ({ position,fault }) => {
    const[imgPos,setImgPos]=useState();
    const[vidPos,setVidPos]=useState();
    const [isPlaying, setIsPlaying] = useState(false);
+   const [currPos, setCurrPos] = useState(position);
    const [showHandles, setShowHandles] = useState(true);
    const {session}=useXR();
-   const positionRef = useRef(position);
+   
    
 
 
@@ -48,15 +49,15 @@ const AnimatedModel = ({ position,fault }) => {
         setIsPlaying(!isPlaying);
       };
     
-      const resetModel = () => {
-        if (actions[animations[0].name]) {
-          actions[animations[0].name]?.stop(); // Stop animation
-        }
-        gltf.scene.position.set(0, 0, 0); // Reset position
-        gltf.scene.rotation.set(0, 0, 0); // Reset rotation
-        gltf.scene.scale.set(1, 1, 1); // Reset scale
-        setIsPlaying(false);
-      };
+    //   const resetModel = () => {
+    //     if (actions[animations[0].name]) {
+    //       actions[animations[0].name]?.stop(); // Stop animation
+    //     }
+    //     gltf.scene.position.set(0, 0, 0); // Reset position
+    //     gltf.scene.rotation.set(0, 0, 0); // Reset rotation
+    //     gltf.scene.scale.set(1, 1, 1); // Reset scale
+    //     setIsPlaying(false);
+    //   };
    
     const handlePointerDown=(e)=>{
         e.stopPropagation();
@@ -71,7 +72,7 @@ const AnimatedModel = ({ position,fault }) => {
     }
     const toggleHandles = () => {
         if (modelRef.current) {
-          positionRef.current = modelRef.current.position.toArray(); // Store current position
+          setCurrPos(modelRef.current.position.toArray()); // Store current position
         }
         setShowHandles((prev) => !prev);
       };
@@ -90,7 +91,7 @@ const AnimatedModel = ({ position,fault }) => {
                 </>
             ):<></> } 
         
-        <group ref={modelRef} position={positionRef.current}>
+        <group ref={modelRef} position={currPos}>
           {showHandles ? (
             <PivotHandles  size={0.5}>
               <primitive object={gltf.scene} scale={0.02} onPointerDown={handlePointerDown} />
@@ -116,7 +117,7 @@ const AnimatedModel = ({ position,fault }) => {
             <button onClick={toggleAnimation}>
               {isPlaying ? "Pause Animation" : "Play Animation"}
             </button>
-            <button onClick={resetModel}>Reset Model</button>
+            {/* <button onClick={resetModel}>Reset Model</button> */}
             <button onClick={toggleHandles}>{showHandles?"done":"adjust"}</button>
             <button onClick={exitAR}>EXIT</button>
           </div>
