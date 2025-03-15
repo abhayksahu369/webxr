@@ -10,9 +10,11 @@ const XrHitModel = () => {
   const [faultyCom,setFaultyCom]=useState();
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
-    const queryValue = queryParams.get("query");
-    setFaultyCom(queryValue)
-    console.log("Query Parameter:", queryValue);
+    let query = queryParams.get("query");
+    if (query) {
+      query = query.replace(/\?/g, "_"); 
+      setFaultyCom(query);
+    }
   }, []);
 
   // Use hit testing to update the reticle's position
