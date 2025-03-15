@@ -1,9 +1,10 @@
-import {TransformHandles,PivotHandles} from "@react-three/handle"
+import { TransformHandles, PivotHandles } from "@react-three/handle"
 import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
 import { useEffect, useRef, useState } from "react";
+import { XRDomOverlay } from "@react-three/xr";
 
-export default function Image({position,scale}) {
+export default function Image({ position, scale }) {
   const images = [
     "/3ds.jpg",
     "/web.jpg",
@@ -22,22 +23,31 @@ export default function Image({position,scale}) {
   const prevImage = () => {
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
   };
-  
-  return (
-    <PivotHandles position={position}  scale={false} size={0.5}>
-      <mesh position={[-0.1, -0.2, 0]} onClick={prevImage} renderOrder={1}>
-        <boxGeometry args={[0.15, 0.09, 0.1]} />
-        <meshBasicMaterial color="blue"  depthTest={false} />
-      </mesh>
 
-      <mesh position={[0.1, -0.2, 0]} onClick={nextImage}>
-        <boxGeometry args={[0.15, 0.09, 0.1]} />
-        <meshBasicMaterial color="green" />
+  return (
+    <>
+      <mesh scale={0.1}>
+        <planeGeometry args={[5, 3]} />
+        <meshBasicMaterial map={textureRef.current} side={THREE.DoubleSide} depthWrite={false} />
       </mesh>
-        <mesh scale={0.1}>
-            <planeGeometry args={[5, 3]}  />
-            <meshBasicMaterial map={textureRef.current} side={THREE.DoubleSide} depthWrite={false}/>
-        </mesh>
-   </PivotHandles>
+      <XRDomOverlay>
+        <div
+          style={{
+            position: "absolute",
+            top: 20,
+            left: "50%",
+            transform: "translateX(-50%)",
+            display: "flex",
+            gap: "10px",
+            background: "rgba(0, 0, 0, 0.5)",
+            padding: "10px",
+            borderRadius: "10px",
+          }}
+        >
+          <button onClick={nextImage}>Next</button>
+          <button onClick={prevImage}>Prev</button>
+        </div>
+      </XRDomOverlay>
+    </>
   )
 }

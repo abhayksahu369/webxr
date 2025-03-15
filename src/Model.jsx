@@ -2,61 +2,71 @@ import { useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useRef, useEffect, useState, useMemo } from "react";
 import { PivotHandles } from "@react-three/handle";
-import { useAnimations } from "@react-three/drei";
+import { useAnimations, useGLTF } from "@react-three/drei";
 import Image from "./Image";
 import Video from "./Video";
 import { useXR, XRDomOverlay } from "@react-three/xr";
+import * as THREE from "three";
 
 const AnimatedModel = ({position,fault }) => {
-    console.log(position)
-   const[showIns,setShowIns]=useState(false);
-   const[imgPos,setImgPos]=useState();
-   const[vidPos,setVidPos]=useState();
-   const [isPlaying, setIsPlaying] = useState(false);
-   const [showHandles, setShowHandles] = useState(true);
-   const {session}=useXR();
-   const positionRef = useRef(position);
-   
+  const[showIns,setShowIns]=useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [showHandles, setShowHandles] = useState(true);
+  const {session}=useXR();
+  const positionRef = useRef(position);
+  const mixer = useRef(null);
+  const action = useRef(null);
+  const { scene, animations } = useGLTF("/factory.glb");
+  
+  useEffect(() => {
+    if (animations.length) {
+      mixer.current = new THREE.AnimationMixer(scene);
+      action.current = mixer.current.clipAction(animations[0]);
+      action.current.play();
+    }
+  }, [animations, scene]);
 
-
-     const exitAR = () => {
+  useFrame((_, delta) => {
+    if (mixer.current && isPlaying) {
+      mixer.current.update(delta);
+    }
+  });
+  
+  
+  scene.traverse((child) => {
+    if (child.isMesh && child.name === fault) {
+      child.material = child.material.clone();
+      child.material.color.set("red");
+    }
+  });
+     
+  
+  
+  
+  
+  const exitAR = () => {
        if (session) session.end();
      };
-   
-   
-    const gltf = useLoader(GLTFLoader, "factory.glb");
-    const modelRef = useRef();
+  
+  const toggleAnimation = () => {
+    if (action.current) {
+      if (isPlaying) {
+        action.current.paused = true; // Pause animation
+      } else {
+        action.current.play(); // Start animation
+        action.current.paused = false;
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
     
-
-    // Change the color of the faulty part
-    gltf.scene.traverse((child) => {
-                if (child.isMesh && child.name === fault) {
-                    child.material = child.material.clone();
-                    child.material.color.set("red");
-                }
-            });
-
-    const { animations } = gltf;
-    const { actions } = useAnimations(animations, modelRef);
-
-    const toggleAnimation = () => {
-        if (isPlaying) {
-          actions[animations[0].name]?.stop();
-        } else {
-          actions[animations[0].name]?.play();
-        }
-        setIsPlaying(!isPlaying);
-      };
-    
-      // const resetModel = () => {
-      //   if (actions[animations[0].name]) {
-      //     actions[animations[0].name]?.stop(); // Stop animation
-      //   }
-      //   gltf.scene.position.set(0, 0, 0); // Reset position
-      //   gltf.scene.rotation.set(0, 0, 0); // Reset rotation
-      //   gltf.scene.scale.set(1, 1, 1); // Reset scale
-      //   setIsPlaying(false);
-      // };
+  const resetModel = () => {
+    if (action.current) {
+      action.current.stop(); 
+      action.current.reset(); 
+    }
+    setIsPlaying(false); 
+  };
    
     const handlePointerDown=(e)=>{
         e.stopPropagation();
@@ -64,6 +74,7 @@ const AnimatedModel = ({position,fault }) => {
             console.log("falty region touched");
             setShowIns(true);
         }
+       
     
     
     }
@@ -75,55 +86,55 @@ const AnimatedModel = ({position,fault }) => {
       };
 
     return (
-        
-     
-        <> 
-        
-        <group ref={modelRef} position={position}>
-            {showIns?(
-                <>
-                <Image position={[-0.3,1,0]}/>
-                <Video position={[0.3,1,0]}/>
-                
-                </>
-            ):<></> } 
-        
-        
-          {showHandles ? (
-            <PivotHandles  size={0.5}>
-              <primitive object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown} />
+    <>
+      <group position={position}>
+        {showIns ? (
+          <>
+             <PivotHandles size={0.5} position={[-0.3, 1, 0]} >
+             <Image />
+             </PivotHandles>
+           
+            <PivotHandles size={0.5} position={[0.3, 1, 0]} >
+            <Video  />
             </PivotHandles>
-          ) : (
-            <primitive object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown}/>
-          )}
-        </group>
-        <XRDomOverlay>
-          <div
-            style={{
-              position: "absolute",
-              bottom: 20,
-              left: "50%",
-              transform: "translateX(-50%)",
-              display: "flex",
-              gap: "10px",
-              background: "rgba(0, 0, 0, 0.5)",
-              padding: "10px",
-              borderRadius: "10px",
-            }}
-          >
-            <button onClick={toggleAnimation}>
-              {isPlaying ? "Pause Animation" : "Play Animation"}
-            </button>
-            {/* <button onClick={resetModel}>Reset Model</button> */}
-            <button onClick={toggleHandles}>{showHandles?"done":"adjust"}</button>
-            <button onClick={exitAR}>EXIT</button>
-          </div>
-        </XRDomOverlay>
+           
 
-        
-        </>
-        
-    );
+          </>
+        ) : <></>}
+        {showHandles ? (
+          <PivotHandles size={0.5}>
+            <primitive object={scene} scale={0.04} onPointerDown={handlePointerDown} />
+          </PivotHandles>
+        ) : (
+          <primitive object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown} />
+        )}
+      </group>
+
+      <XRDomOverlay>
+        <div
+          style={{
+            position: "absolute",
+            top: 20,
+            left: "50%",
+            transform: "translateX(-50%)",
+            display: "flex",
+            gap: "10px",
+            background: "rgba(0, 0, 0, 0.5)",
+            padding: "10px",
+            borderRadius: "10px",
+          }}
+        >
+          <button onClick={toggleAnimation}>
+            {isPlaying ? "Pause Animation" : "Play Animation"}
+          </button>
+          <button onClick={resetModel}>Reset Model</button>
+          <button onClick={toggleHandles}>{showHandles ? "done" : "adjust"}</button>
+          <button onClick={exitAR}>EXIT</button>
+        </div>
+      </XRDomOverlay>
+    </>
+
+  );
 };
 
 export default AnimatedModel;

@@ -2,10 +2,10 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { PivotHandles, TransformHandles } from "@react-three/handle";
+import { XRDomOverlay } from "@react-three/xr";
 
 
-export default function Video({position}) {
-    console.log(position)
+export default function Video({ position }) {
   const videoRef = useRef(null);
   const [videoTexture, setVideoTexture] = useState(null);
 
@@ -25,25 +25,32 @@ export default function Video({position}) {
 
   return (
     <>
-       <PivotHandles position={position} size={0.5}>
-        <group>
-      {videoTexture && (
-        <mesh  scale={0.2} renderOrder={1}>
-          <planeGeometry args={[3, 2]}  />
-          <meshBasicMaterial map={videoTexture} depthWrite={false} toneMapped={false} side={THREE.DoubleSide} depthTest={false}/>
-        </mesh>
-      )}
-      {/* Video Controls */}
-      <mesh position={[-0.1,-0.3,0]} onClick={() => videoRef.current.play()}>
-        <boxGeometry args={[0.2, 0.1, 0.1]} />
-        <meshBasicMaterial color="green" />
-      </mesh>
-      <mesh position={[0.1,-0.3,0]} onClick={() => videoRef.current.pause()}>
-        <boxGeometry args={[0.2, 0.1, 0.1]} />
-        <meshBasicMaterial color="red" />
-      </mesh>
-      </group>
-      </PivotHandles>
+        <group position={position}>
+          {videoTexture && (
+            <mesh scale={0.2} renderOrder={1}>
+              <planeGeometry args={[3, 2]} />
+              <meshBasicMaterial map={videoTexture} depthWrite={false} toneMapped={false} side={THREE.DoubleSide} depthTest={false} />
+            </mesh>
+          )}
+        </group>
+        <XRDomOverlay>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 40,
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              gap: "10px",
+              background: "rgba(0, 0, 0, 0.5)",
+              padding: "10px",
+              borderRadius: "10px",
+            }}
+          >
+            <button onClick={() => videoRef.current.play()}>Play video</button>
+            <button onClick={() => videoRef.current.pause()}>Pause video</button>
+          </div>
+        </XRDomOverlay>
     </>
   );
 }

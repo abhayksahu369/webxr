@@ -9,7 +9,7 @@ import XrHitModel from "./XrHitModel";
 const store = createXRStore();
 
 
-export default function ModelContainer({position}) {
+export default function ModelContainer() {
   // const [position, setPosition] = useState([0, 0, -1]); // Default position in front of the user
   return (
     <>

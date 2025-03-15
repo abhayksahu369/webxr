@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-     <ModelContainer/>y
+     <ModelContainer/>
     </>
   )
 }

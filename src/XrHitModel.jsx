@@ -6,7 +6,7 @@ import ModelContainer from "./ModelContainer";
 
 const XrHitModel = () => {
   const reticleRef = useRef(); // Reticle shows where model will be placed
-  const [modelPosition, setModelPosition] = useState([0, 0, -1]);
+  const [modelPosition, setModelPosition] = useState();
   const [faultyCom,setFaultyCom]=useState();
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -47,7 +47,7 @@ const XrHitModel = () => {
         <ringGeometry args={[0.1, 0.25, 32]} />
         <meshStandardMaterial color="white" />
       </mesh>
-      <Model position={modelPosition} fault={faultyCom} />
+      {modelPosition&&<Model position={modelPosition} fault={faultyCom} />}
     </>
   );
 };
