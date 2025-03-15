@@ -82,8 +82,8 @@ const AnimatedModel = ({position,fault }) => {
         <group ref={modelRef} position={position}>
             {showIns?(
                 <>
-                <Image position={[0,1,0]}/>
-                <Video position={[0.7,1,0]}/>
+                <Image position={[-0.3,1,0]}/>
+                <Video position={[0.3,1,0]}/>
                 
                 </>
             ):<></> } 
