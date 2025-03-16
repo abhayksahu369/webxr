@@ -8,6 +8,7 @@ import { useXR, XRDomOverlay } from "@react-three/xr";
 import * as THREE from "three";
 import SensorDashboard from "./Dashboard";
 
+
 const AnimatedModel = ({position,fault,scale }) => {
   console.log(position)
   const[showIns,setShowIns]=useState(false);
@@ -19,7 +20,7 @@ const AnimatedModel = ({position,fault,scale }) => {
   const action = useRef(null);
   const { scene, animations } = useGLTF("/waterpump/waterpump.glb");
   const videoRef = useRef(null);
-  const [videoPlaying, setVideoPlaying] = useState(false);
+  const[showDashboard,setShowDashboard]=useState(false);
 
 const playVideo = () => {
   if (videoRef.current) {
@@ -148,7 +149,7 @@ const pauseVideo = () => {
       </group>
 
       <XRDomOverlay>
-        <SensorDashboard/>
+        {showDashboard?<SensorDashboard/>:<></>}
         <div
           style={{
             position: "absolute",
@@ -168,9 +169,10 @@ const pauseVideo = () => {
           <button onClick={resetModel}>Reset Model</button>
           <button onClick={toggleHandles}>{showHandles ? "Done" : "Adjust"}</button>
           <button onClick={exitAR}>Exit</button>
+          <button onClick={()=>{setShowDashboard(!showDashboard)}}>Real-time analysis</button>
             
         </div>
-        {showIns && (
+        {!showDashboard&&showIns && (
               <div
               style={{
                 position: "absolute",
@@ -184,8 +186,8 @@ const pauseVideo = () => {
                 borderRadius: "10px",
               }}
             >
-                <button onClick={playVideo}>Play Video</button>
-                <button onClick={pauseVideo}>Pause Video</button>
+              <button onClick={playVideo}>Play Video</button>
+              <button onClick={pauseVideo}>Pause Video</button>
               <button onClick={nextImage}>Next</button>
               <button onClick={prevImage}>Prev</button>
             </div>
