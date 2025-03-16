@@ -196,7 +196,7 @@ const SensorDashboard = () => {
         <h1 className="text-2xl font-bold mb-4 text-white">Sensor Data Dashboard</h1>
         
         {/* Controls */}
-        <div className="bg-gray-800 rounded-lg shadow-lg mb-6 p-4 flex flex-wrap items-center justify-between border border-gray-700">
+        {/* <div className="bg-gray-800 rounded-lg shadow-lg mb-6 p-4 flex flex-wrap items-center justify-between border border-gray-700">
           <div className="flex items-center space-x-4">
             <button
               onClick={() => setSelectedView('realtime')}
@@ -229,23 +229,22 @@ const SensorDashboard = () => {
             </div>
           )}
         </div>
-        
+         */}
         {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div className="bg-gray-800 rounded-lg shadow-lg p-4 border border-gray-700">
-            <h3 className="text-lg font-semibold mb-2 text-gray-300">Temperature</h3>
-            <p className="text-3xl font-bold text-red-400">{averages.temp}°C</p>
-          </div>
-          <div className="bg-gray-800 rounded-lg shadow-lg p-4 border border-gray-700">
-            <h3 className="text-lg font-semibold mb-2 text-gray-300">Humidity</h3>
-            <p className="text-3xl font-bold text-teal-400">{averages.humidity}%</p>
-          </div>
-          <div className="bg-gray-800 rounded-lg shadow-lg p-4 border border-gray-700">
-            <h3 className="text-lg font-semibold mb-2 text-gray-300">Vibration</h3>
-            <p className="text-3xl font-bold text-blue-400">{averages.vibration}m/s2</p>
-          </div>
-        </div>
-        
+              <div>
+                  <div>
+                      <h3>Temperature</h3>
+                      <p>{averages.temp}°C</p>
+                  </div>
+                  <div>
+                      <h3>Humidity</h3>
+                      <p>{averages.humidity}%</p>
+                  </div>
+                  <div>
+                      <h3>Vibration</h3>
+                      <p>{averages.vibration}m/s²</p>
+                  </div>
+              </div>
         {/* Charts */}
         <div className="space-y-6">
           <div className="bg-gray-800 rounded-lg shadow-lg p-4 border border-gray-700">
