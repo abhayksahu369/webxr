@@ -88,9 +88,9 @@ const SensorDashboard = () => {
 
     // Create or update a chart using D3
     const createOrUpdateChart = (element, data, metric, color) => {
-        const margin = { top: 20, right: 30, bottom: 30, left: 50 };
-        const width = element.clientWidth - margin.left - margin.right;
-        const height = 200 - margin.top - margin.bottom;
+        // const margin = { top: 20, right: 30, bottom: 30, left: 50 };
+        // const width = element.clientWidth - margin.left - margin.right;
+        // const height = 200 - margin.top - margin.bottom;
 
         // Clear existing chart
         d3.select(element).selectAll("*").remove();
