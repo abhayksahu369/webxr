@@ -17,6 +17,21 @@ const AnimatedModel = ({position,fault }) => {
   const mixer = useRef(null);
   const action = useRef(null);
   const { scene, animations } = useGLTF("/waterpump/waterpump.glb");
+  const videoRef = useRef(null);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+
+const playVideo = () => {
+  if (videoRef.current) {
+    videoRef.current.play();
+  }
+};
+
+const pauseVideo = () => {
+  if (videoRef.current) {
+    videoRef.current.pause();
+  }
+};
+
   
   useEffect(() => {
     if (animations.length) {
@@ -95,7 +110,7 @@ const AnimatedModel = ({position,fault }) => {
              </PivotHandles>
            
             <PivotHandles size={0.5} position={[0.3, 1, 0]} >
-            <Video  />
+            <Video ref={videoRef} />
             </PivotHandles>
            
 
@@ -130,6 +145,12 @@ const AnimatedModel = ({position,fault }) => {
           <button onClick={resetModel}>Reset Model</button>
           <button onClick={toggleHandles}>{showHandles ? "done" : "adjust"}</button>
           <button onClick={exitAR}>EXIT</button>
+            {showIns && (
+              <>
+                <button onClick={playVideo}>Play Video</button>
+                <button onClick={pauseVideo}>Pause Video</button>
+              </>
+            )}
         </div>
       </XRDomOverlay>
     </>

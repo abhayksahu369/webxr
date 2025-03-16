@@ -30,7 +30,7 @@ export default function Image({ position, scale }) {
         <planeGeometry args={[5, 3]} />
         <meshBasicMaterial map={textureRef.current} side={THREE.DoubleSide} depthWrite={false} />
       </mesh>
-      <XRDomOverlay>
+      {/* <XRDomOverlay>
         <div
           style={{
             position: "absolute",
@@ -47,7 +47,7 @@ export default function Image({ position, scale }) {
           <button onClick={nextImage}>Next</button>
           <button onClick={prevImage}>Prev</button>
         </div>
-      </XRDomOverlay>
+      </XRDomOverlay> */}
     </>
   )
 }
