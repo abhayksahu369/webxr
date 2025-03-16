@@ -1,63 +1,45 @@
-import { Canvas } from "@react-three/fiber";
-import { ARButton, XR, useXRRequestHitTest } from "@react-three/xr";
-import { useRef, useEffect, Suspense, useState } from "react";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import * as THREE from "three";
+import { Canvas } from '@react-three/fiber';
+import { XR, XRHitTest } from '@react-three/xr';
+import { useState, useRef } from 'react';
+import { Matrix4, Vector3 } from 'three';
 
+const matrixHelper = new Matrix4();
+const hitTestPosition = new Vector3();
 
-export default function HitTestScene() {
-  const torusRef = useRef(); // Ref for torus
-  const modelRef = useRef(); // Ref for model
-  const requestHitTest = useXRRequestHitTest();
-  const [position,setPosition]=useState([]);
-
-  useEffect(() => {
-    const updatePosition = async () => {
-      const hitTest = await requestHitTest("viewer");
-      if (hitTest?.results.length) {
-        const matrix = new THREE.Matrix4();
-        hitTest.getWorldMatrix(matrix, hitTest.results[0]);
-        const pos = new THREE.Vector3().setFromMatrixPosition(matrix);
-
-        if (torusRef.current) {
-          torusRef.current.position.copy(pos); // Move torus to valid position
-        }
-      }
-      requestAnimationFrame(updatePosition);
-    };
-    updatePosition();
-  }, [requestHitTest]);
-
-  const placeModel = () => {
-    if (torusRef.current ) {
-
-      setPosition([...torusRef.current.position]); // Place model where torus is
-
-    }
-  };
+export default function HitTestComponent() {
+  const [hitDetected, setHitDetected] = useState(false);
+  const [placed, setPlaced] = useState(false);
 
   return (
     <>
-      {/* Ring (Torus) to tap on */}
-      <mesh ref={torusRef} onClick={placeModel} rotation={[-Math.PI / 2, 0, 0]} >
-        <ringGeometry args={[0.1, 0.25, 32]} />
-        <meshStandardMaterial color="yellow" />
-      </mesh>
-
-      {/* 3D Model (Initially hidden) */}
-    
-        {position&&<Model position={position}  scale={0.04}/>}
+      <XRHitTest
+        onResults={(results, getWorldMatrix) => {
+          if (results.length === 0 || results[0].target !== 'plane') return; // Ensure hit test detects only plane surfaces
+          getWorldMatrix(matrixHelper, results[0]);
+          hitTestPosition.setFromMatrixPosition(matrixHelper);
+          setHitDetected(true);
+        }}
+      />
+      {hitDetected && <Ring onClick={() => setPlaced(true)} position={hitTestPosition.clone()} />}
+      {placed && <PlacedModel position={hitTestPosition.clone()} />}
     </>
   );
 }
 
-function Model() {
-  const gltf = useRef(null);
-  useEffect(() => {
-    new GLTFLoader().load("/waterpump/waterpump.glb", (loadedGltf) => {
-      gltf.current = loadedGltf.scene;
-    });
-  }, []);
+function Ring({ onClick, position }) {
+  return (
+    <mesh position={position} onClick={onClick}>
+      <ringGeometry args={[0.03, 0.05, 32]} />
+      <meshBasicMaterial color="red" />
+    </mesh>
+  );
+}
 
-  return gltf.current ? <primitive object={gltf.current} /> : null;
+function PlacedModel({ position }) {
+  return (
+    <mesh position={position}>
+      <boxGeometry args={[0.1, 0.1, 0.1]} />
+      <meshStandardMaterial color="blue" />
+    </mesh>
+  );
 }

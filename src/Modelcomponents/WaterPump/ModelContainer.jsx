@@ -22,8 +22,8 @@ export default function ModelContainer() {
 
           
           {/* <Model position={position} fault="pasted__pCylinder2_lambert1_0001" /> */}
-          <XrHitModel/>
-          {/* <HitTest/> */}
+          {/* <XrHitModel/> */}
+          <HitTest/>
         
 
         </XR>
