@@ -203,7 +203,8 @@ const SensorDashboard = () => {
                 gap: "10px",
                 padding: "10px",
                 borderRadius: "10px",
-                alignContent:"center"
+                alignContent:"center",
+                justifyContent:"center"
             }}>
                 <div >
                     <h6>Temperature:{averages.temp}°C</h6>
@@ -217,7 +218,7 @@ const SensorDashboard = () => {
             </div>
 
 
-            <div style={{ display: "flex", gap: "5px", padding: "5px", width: "100%", height: "10vh", position: "fixed", bottom: 100 }}>
+            <div style={{ display: "flex", gap: "5px", padding: "5px", width: "100vw", height: "10vh", position: "fixed", bottom: 100 ,background:"blue"}}>
                 <div style={{  textAlign: "center" }}>
                     <h3 style={{ fontSize: "8px", marginBottom: "2px" }}>Temp (°C)</h3>
                     <div ref={tempChartRef} style={{ width: "100%", height: "80%" }}></div>
