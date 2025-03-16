@@ -34,7 +34,7 @@ const XrHitModel = () => {
     reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
   });
   if (reticleRef.current) {
-    reticleRef.current.position.set(0, 0, -0.5); // Default position in front
+    reticleRef.current.position.set(0, 0, -1); // Default position in front
   }
   if(reticleRef.current){
     console.log(reticleRef.current.position)
