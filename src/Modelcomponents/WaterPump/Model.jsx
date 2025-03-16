@@ -150,47 +150,50 @@ const pauseVideo = () => {
       <XRDomOverlay>
         {/* <SensorDashboard/> */}
         <div
-  style={{
-    position: "absolute",
-    top: 20,
-    right: 20,
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-    background: "rgba(0, 0, 0, 0.5)",
-    padding: "10px",
-    borderRadius: "10px",
-  }}
->
-  <button onClick={toggleAnimation}>
-    {isPlaying ? "Pause Animation" : "Play Animation"}
-  </button>
-  <button onClick={resetModel}>Reset Model</button>
-  <button onClick={toggleHandles}>{showHandles ? "Done" : "Adjust"}</button>
-  <button onClick={exitAR}>Exit</button>
-</div>
+          style={{
+            transform: "rotate(90deg)",
+            position: "absolute",
+            top: 20,
+            left: "50%",
+            transform: "translateX(-50%)",
+            display: "flex",
+            gap: "10px",
+            background: "rgba(0, 0, 0, 0.5)",
+            padding: "10px",
+            borderRadius: "10px",
+          }}
+        >
+          <button onClick={toggleAnimation}>
+            {isPlaying ? "Pause Animation" : "Play Animation"}
+          </button>
+          <button onClick={resetModel}>Reset Model</button>
+          <button onClick={toggleHandles}>{showHandles ? "Done" : "Adjust"}</button>
+          <button onClick={exitAR}>Exit</button>
+            
+        </div>
+        {showIns && (
+              <div
+              style={{
+                transform: "rotate(90deg)",
+                position: "absolute",
+                bottom: 20,
+                left: "50%",
+                transform: "translateX(-50%)",
+                display: "flex",
+                gap: "10px",
+                background: "rgba(0, 0, 0, 0.5)",
+                padding: "10px",
+                borderRadius: "10px",
+              }}
+            >
+                <button onClick={playVideo}>Play Video</button>
+                <button onClick={pauseVideo}>Pause Video</button>
+              <button onClick={nextImage}>Next</button>
+              <button onClick={prevImage}>Prev</button>
+            </div>
+          
 
-{showIns && (
-  <div
-    style={{
-      position: "absolute",
-      bottom: 20,
-      right: 20,
-      display: "flex",
-      flexDirection: "column",
-      gap: "10px",
-      background: "rgba(0, 0, 0, 0.5)",
-      padding: "10px",
-      borderRadius: "10px",
-    }}
-  >
-    <button onClick={playVideo}>Play Video</button>
-    <button onClick={pauseVideo}>Pause Video</button>
-    <button onClick={nextImage}>Next</button>
-    <button onClick={prevImage}>Prev</button>
-  </div>
-)}
-
+            )}
       </XRDomOverlay>
     </>
 
