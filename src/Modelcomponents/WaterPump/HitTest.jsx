@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { ARButton, XR, useXRRequestHitTest } from "@react-three/xr";
-import { useRef, useEffect, Suspense } from "react";
+import { useRef, useEffect, Suspense, useState } from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 
@@ -9,6 +9,7 @@ export default function HitTestScene() {
   const torusRef = useRef(); // Ref for torus
   const modelRef = useRef(); // Ref for model
   const requestHitTest = useXRRequestHitTest();
+  const [position,setPosition]=useState([]);
 
   useEffect(() => {
     const updatePosition = async () => {
@@ -29,7 +30,8 @@ export default function HitTestScene() {
 
   const placeModel = () => {
     if (torusRef.current && modelRef.current) {
-      modelRef.current.position.copy(torusRef.current.position); // Place model where torus is
+
+      setPosition([...torusRef.current.position]); // Place model where torus is
       modelRef.current.visible = true; // Show model when tapped
     }
   };
@@ -43,8 +45,8 @@ export default function HitTestScene() {
       </mesh>
 
       {/* 3D Model (Initially hidden) */}
-      <group ref={modelRef} scale={0.1}  visible={false}>
-        <Model />
+      <group ref={modelRef} scale={0.05}  visible={false}>
+        <Model position={position} />
       </group>
     </>
   );
