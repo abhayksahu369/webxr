@@ -14,13 +14,12 @@ export default function HitTestComponent() {
     <>
       <XRHitTest
         onResults={(results, getWorldMatrix) => {
-          if (results.length === 0 || results[0].target !== 'plane') return; // Ensure hit test detects only plane surfaces
+          if (results.length === 0 ) return; // Ensure hit test detects only plane surfaces
           getWorldMatrix(matrixHelper, results[0]);
           hitTestPosition.setFromMatrixPosition(matrixHelper);
-          setHitDetected(true);
         }}
       />
-      {hitDetected && <Ring onClick={() => setPlaced(true)} position={hitTestPosition.clone()} />}
+     <Ring onClick={() => setPlaced(true)} position={hitTestPosition.clone()} />
       {placed && <PlacedModel position={hitTestPosition.clone()} />}
     </>
   );
