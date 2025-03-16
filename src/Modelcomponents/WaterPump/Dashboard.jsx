@@ -194,17 +194,24 @@ const SensorDashboard = () => {
     <div >
       <div >
          <div>
-                  <div>
-                      <h3>Temperature</h3>
-                      <p>{averages.temp}°C</p>
+                  <div style={{
+            position: "absolute",
+            top: 40,
+            left: "50%",
+            transform: "translateX(-50%)",
+            display: "flex",
+            gap: "10px",
+            background: "rgba(0, 0, 0, 0.5)",
+            padding: "10px",
+            borderRadius: "10px",
+          }}>
+                      <h6>Temperature {averages.temp}°C</h6>
                   </div>
                   <div>
-                      <h3>Humidity</h3>
-                      <p>{averages.humidity}%</p>
+                      <h6>Humidity:{averages.humidity}%</h6>
                   </div>
                   <div>
-                      <h3>Vibration</h3>
-                      <p>{averages.vibration}m/s²</p>
+                      <h6>Vibration:{averages.vibration}m/s²</h6>
                   </div>
               </div>
         {/* Charts */}
