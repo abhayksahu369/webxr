@@ -151,9 +151,10 @@ const pauseVideo = () => {
         <SensorDashboard/>
         <div
           style={{
-            transform: "rotate(90deg)",
             position: "absolute",
             top: 20,
+            left: "50%",
+            transform: "translateX(-50%)",
             display: "flex",
             gap: "10px",
             background: "rgba(0, 0, 0, 0.5)",
@@ -172,10 +173,10 @@ const pauseVideo = () => {
         {showIns && (
               <div
               style={{
-                transform: "rotate(90deg)",
                 position: "absolute",
                 bottom: 20,
                 left: "50%",
+                transform: "translateX(-50%)",
                 display: "flex",
                 gap: "10px",
                 background: "rgba(0, 0, 0, 0.5)",

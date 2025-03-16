@@ -191,47 +191,9 @@ const SensorDashboard = () => {
   const averages = getAverageValues();
 
   return (
-    <div className="bg-gray-900 text-gray-100 min-h-screen p-4">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4 text-white">Sensor Data Dashboard</h1>
-        
-        {/* Controls */}
-        {/* <div className="bg-gray-800 rounded-lg shadow-lg mb-6 p-4 flex flex-wrap items-center justify-between border border-gray-700">
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={() => setSelectedView('realtime')}
-              className={`px-4 py-2 rounded ${selectedView === 'realtime' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300'}`}
-            >
-              Real-time Data
-            </button>
-            <button
-              onClick={() => setSelectedView('cumulative')}
-              className={`px-4 py-2 rounded ${selectedView === 'cumulative' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300'}`}
-            >
-              Cumulative Data
-            </button>
-          </div>
-          
-          {selectedView === 'cumulative' && (
-            <div className="flex items-center space-x-2 mt-2 sm:mt-0">
-              <span className="text-gray-300">Time Range:</span>
-              <select
-                value={timeRange}
-                onChange={(e) => setTimeRange(e.target.value)}
-                className="bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white"
-              >
-                <option value="1h">Last Hour</option>
-                <option value="6h">Last 6 Hours</option>
-                <option value="24h">Last 24 Hours</option>
-                <option value="7d">Last 7 Days</option>
-                <option value="30d">Last 30 Days</option>
-              </select>
-            </div>
-          )}
-        </div>
-         */}
-        {/* Stats Overview */}
-              <div>
+    <div >
+      <div >
+         <div>
                   <div>
                       <h3>Temperature</h3>
                       <p>{averages.temp}°C</p>
