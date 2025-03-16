@@ -6,6 +6,7 @@ import { useAnimations, useGLTF } from "@react-three/drei";
 import Video from "./Video";
 import { useXR, XRDomOverlay } from "@react-three/xr";
 import * as THREE from "three";
+import SensorDashboard from "./Dashboard";
 
 const AnimatedModel = ({position,fault,scale }) => {
   console.log(position)
@@ -147,6 +148,7 @@ const pauseVideo = () => {
       </group>
 
       <XRDomOverlay>
+        <SensorDashboard/>
         <div
           style={{
             position: "absolute",
