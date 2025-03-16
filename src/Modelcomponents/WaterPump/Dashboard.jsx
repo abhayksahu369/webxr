@@ -246,23 +246,25 @@ const SensorDashboard = () => {
                   </div>
               </div>
         {/* Charts */}
-        <div className="space-y-6">
-          <div className="bg-gray-800 rounded-lg shadow-lg p-4 border border-gray-700">
-            <h3 className="text-lg font-semibold mb-4 text-gray-300">Temperature (°C)</h3>
-            <div ref={tempChartRef} className="w-full h-48"></div>
-          </div>
-          
-          <div className="bg-gray-800 rounded-lg shadow-lg p-4 border border-gray-700">
-            <h3 className="text-lg font-semibold mb-4 text-gray-300">Humidity (%)</h3>
-            <div ref={humidityChartRef} className="w-full h-48"></div>
-          </div>
-          
-          <div className="bg-gray-800 rounded-lg shadow-lg p-4 border border-gray-700">
-            <h3 className="text-lg font-semibold mb-4 text-gray-300">Vibration</h3>
-            <div ref={vibrationChartRef} className="w-full h-48"></div>
-          </div>
+        <div>
+                  <div>
+                      <h3>Temperature (°C)</h3>
+                      <div ref={tempChartRef}></div>
+                  </div>
+
+                  <div>
+                      <h3>Humidity (%)</h3>
+                      <div ref={humidityChartRef}></div>
+                  </div>
+
+                  <div>
+                      <h3>Vibration</h3>
+                      <div ref={vibrationChartRef}></div>
+                  </div>
+              </div>
+
         </div>
-      </div>
+    
     </div>
   );
 };
