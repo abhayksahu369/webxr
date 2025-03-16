@@ -218,17 +218,17 @@ const SensorDashboard = () => {
 
 
             <div style={{ display: "flex", gap: "5px", padding: "5px", width: "100%", height: "10vh", position: "fixed", bottom: 100 }}>
-                <div style={{ width: "6vw", height: "6vh", textAlign: "center" }}>
+                <div style={{  textAlign: "center" }}>
                     <h3 style={{ fontSize: "8px", marginBottom: "2px" }}>Temp (°C)</h3>
                     <div ref={tempChartRef} style={{ width: "100%", height: "80%" }}></div>
                 </div>
 
-                <div style={{ width: "6vw", height: "6vh", textAlign: "center" }}>
+                <div style={{  textAlign: "center" }}>
                     <h3 style={{ fontSize: "8px", marginBottom: "2px" }}>Humidity (%)</h3>
                     <div ref={humidityChartRef} style={{ width: "100%", height: "80%" }}></div>
                 </div>
 
-                <div style={{ width: "6vw", height: "6vh", textAlign: "center" }}>
+                <div style={{  textAlign: "center" }}>
                     <h3 style={{ fontSize: "8px", marginBottom: "2px" }}>Vibration</h3>
                     <div ref={vibrationChartRef} style={{ width: "100%", height: "80%" }}></div>
                 </div>
