@@ -191,8 +191,7 @@ const SensorDashboard = () => {
   const averages = getAverageValues();
 
   return (
- 
-    
+    <div >
       <div >
          <div style={{
             position: "absolute",
@@ -215,36 +214,26 @@ const SensorDashboard = () => {
                   </div>
               </div>
         {/* Charts */}
-        <div
-  style={{
-    position: "fixed",
-    top: "0",
-    left: "0",
-    transform: "rotate(90deg) translateY(-100%)",
-    transformOrigin: "top left",
-    background: "rgba(0, 0, 0, 0.5)",
-    padding: "5px",
-    borderRadius: "8px",
-    width: "150px", // Adjust width
-    fontSize: "12px", // Reduce text size
-  }}
->
-  <div style={{ marginBottom: "5px" }}>
-    <h3 style={{ fontSize: "14px", marginBottom: "3px" }}>Temperature (°C)</h3>
-    <div ref={tempChartRef} style={{ width: "100%", height: "50px" }}></div>
+        <div style={{ display: "flex", gap: "5px", padding: "5px", width: "20vw", height: "10vh" }}>
+  <div style={{ width: "6vw", height: "6vh", textAlign: "center" }}>
+    <h3 style={{ fontSize: "8px", marginBottom: "2px" }}>Temp (°C)</h3>
+    <div ref={tempChartRef} style={{ width: "100%", height: "80%" }}></div>
   </div>
 
-  <div style={{ marginBottom: "5px" }}>
-    <h3 style={{ fontSize: "14px", marginBottom: "3px" }}>Humidity (%)</h3>
-    <div ref={humidityChartRef} style={{ width: "100%", height: "50px" }}></div>
+  <div style={{ width: "6vw", height: "6vh", textAlign: "center" }}>
+    <h3 style={{ fontSize: "8px", marginBottom: "2px" }}>Humidity (%)</h3>
+    <div ref={humidityChartRef} style={{ width: "100%", height: "80%" }}></div>
   </div>
 
-  <div>
-    <h3 style={{ fontSize: "14px", marginBottom: "3px" }}>Vibration</h3>
-    <div ref={vibrationChartRef} style={{ width: "100%", height: "50px" }}></div>
+  <div style={{ width: "6vw", height: "6vh", textAlign: "center" }}>
+    <h3 style={{ fontSize: "8px", marginBottom: "2px" }}>Vibration</h3>
+    <div ref={vibrationChartRef} style={{ width: "100%", height: "80%" }}></div>
   </div>
 </div>
 
+
+        </div>
+    
     </div>
   );
 };
