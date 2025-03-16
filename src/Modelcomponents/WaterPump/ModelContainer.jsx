@@ -2,7 +2,6 @@ import { Canvas} from "@react-three/fiber";
 import { OrbitControls} from "@react-three/drei";
 import { XR, PointerEvents, XRDomOverlay, createXRStore,useXR ,requestXRAnchor} from "@react-three/xr";
 import XrHitModel from "./XrHitModel";
-import Test from "./Test";
 const store = createXRStore();
 
 
@@ -22,8 +21,8 @@ export default function ModelContainer() {
 
           
           {/* <Model position={position} fault="pasted__pCylinder2_lambert1_0001" /> */}
-          {/* <XrHitModel/> */}
-          <Test/>
+          <XrHitModel/>
+        
 
         </XR>
       </Canvas>
