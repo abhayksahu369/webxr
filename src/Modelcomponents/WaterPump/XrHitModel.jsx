@@ -10,9 +10,8 @@ const XrHitModel = () => {
   const [faultyCom,setFaultyCom]=useState();
 
   const {session}=useXR();
-  
-  
-  useEffect(() => {
+   useEffect(() => {
+   
     const queryParams = new URLSearchParams(window.location.search);
     let query = queryParams.get("query");
     if (query) {
@@ -24,6 +23,7 @@ const XrHitModel = () => {
   // Use hit testing to update the reticle's position
   useXRHitTest((hitMatrix) => {
     // if (reticleRef.current) {
+      console.log("testing")
     console.log(hitMatrix)
       hitMatrix.decompose(
         reticleRef.current.position,
@@ -33,7 +33,12 @@ const XrHitModel = () => {
     // }
     reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
   });
-
+  if (reticleRef.current) {
+    reticleRef.current.position.set(0, 0, -2); // Default position in front
+  }
+  if(reticleRef.current){
+    console.log(reticleRef.current.position)
+  }
  
   const placeModel = () => {
     if (reticleRef.current) {

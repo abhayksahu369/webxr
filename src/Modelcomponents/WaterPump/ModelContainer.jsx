@@ -11,7 +11,7 @@ export default function ModelContainer() {
     <>
       <button onClick={() => store.enterAR()} >Enter AR</button>
       <Canvas >
-        <XR store={store} >
+        <XR store={store}  sessionInit={{ requiredFeatures: ["hit-test"] }}>
           <OrbitControls />
           <PointerEvents />
           <ambientLight intensity={0.5} />
