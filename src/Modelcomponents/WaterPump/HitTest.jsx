@@ -1,33 +1,35 @@
 import { Canvas } from '@react-three/fiber';
-import { XR, XRHitTest } from '@react-three/xr';
-import { useState, useRef } from 'react';
+import { XR, XRButton, XRHitTest } from '@react-three/xr';
+import { useState } from 'react';
 import { Matrix4, Vector3 } from 'three';
 
 const matrixHelper = new Matrix4();
-const hitTestPosition = new Vector3();
 
 export default function HitTestComponent() {
   const [hitDetected, setHitDetected] = useState(false);
   const [placed, setPlaced] = useState(false);
+  const [hitTestPosition, setHitTestPosition] = useState(new Vector3());
 
   return (
     <>
       <XRHitTest
         onResults={(results, getWorldMatrix) => {
-          if (results.length === 0 ) return; // Ensure hit test detects only plane surfaces
+          if (results.length === 0) return; // Remove plane check until verified
+          console.log(results); // Debugging output
           getWorldMatrix(matrixHelper, results[0]);
-          hitTestPosition.setFromMatrixPosition(matrixHelper);
+          setHitTestPosition(new Vector3().setFromMatrixPosition(matrixHelper));
+          setHitDetected(true);
         }}
       />
-     <Ring onClick={() => setPlaced(true)} position={hitTestPosition.clone()} />
-      {placed && <PlacedModel position={hitTestPosition.clone()} />}
+      {hitDetected && <Ring onPointerDown={() => setPlaced(true)} position={hitTestPosition} />}
+      {placed && <PlacedModel position={hitTestPosition} />}
     </>
   );
 }
 
-function Ring({ onClick, position }) {
+function Ring({ onPointerDown, position }) {
   return (
-    <mesh position={position}  rotation={[-Math.PI / 2, 0, 0]} onClick={onClick}>
+    <mesh position={position} rotation={[-Math.PI / 2, 0, 0]} onPointerDown={onPointerDown}>
       <ringGeometry args={[0.1, 0.25, 32]} />
       <meshBasicMaterial color="red" />
     </mesh>
