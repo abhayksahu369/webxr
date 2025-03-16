@@ -2,6 +2,7 @@ import { Canvas} from "@react-three/fiber";
 import { OrbitControls} from "@react-three/drei";
 import { XR, PointerEvents, XRDomOverlay, createXRStore,useXR ,requestXRAnchor} from "@react-three/xr";
 import XrHitModel from "./XrHitModel";
+import Test from "./Test";
 const store = createXRStore();
 
 
@@ -11,7 +12,7 @@ export default function ModelContainer() {
     <>
       <button onClick={() => store.enterAR()} >Enter AR</button>
       <Canvas >
-        <XR store={store}>
+        <XR store={store} sessionInit={{ requiredFeatures: ["hit-test"] }}>
           <OrbitControls />
           <PointerEvents />
           <ambientLight intensity={0.5} />
@@ -21,7 +22,8 @@ export default function ModelContainer() {
 
           
           {/* <Model position={position} fault="pasted__pCylinder2_lambert1_0001" /> */}
-          <XrHitModel/>
+          {/* <XrHitModel/> */}
+          <Test/>
 
         </XR>
       </Canvas>
