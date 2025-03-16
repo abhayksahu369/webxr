@@ -1,12 +1,7 @@
-import { Canvas,useLoader } from "@react-three/fiber";
+import { Canvas} from "@react-three/fiber";
 import { OrbitControls} from "@react-three/drei";
 import { XR, PointerEvents, XRDomOverlay, createXRStore,useXR ,requestXRAnchor} from "@react-three/xr";
-import { useState } from "react";
-import Model from "./Model";
-import * as THREE from "three";
-import Video from "./Video";
 import XrHitModel from "./XrHitModel";
-import DashboardInAR from "../../DashboardInAR";
 const store = createXRStore();
 
 
@@ -23,7 +18,7 @@ export default function ModelContainer() {
           <directionalLight position={[5, 5, 5]} intensity={2} />
           <directionalLight position={[-5, -5, 5]} intensity={1.5} />
           <pointLight position={[0, 2, 2]} intensity={1.5} />
-          <DashboardInAR/>
+
           
           {/* <Model position={position} fault="pasted__pCylinder2_lambert1_0001" /> */}
           <XrHitModel/>
