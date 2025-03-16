@@ -150,15 +150,19 @@ const pauseVideo = () => {
       <XRDomOverlay>
         {/* <SensorDashboard/> */}
         <div
-          style={{
-            transform: "rotate(90deg)",
-            display: "flex",
-            gap: "10px",
-            background: "rgba(0, 0, 0, 0.5)",
-            padding: "10px",
-            borderRadius: "10px",
-          }}
-        >
+  style={{
+    position: "fixed",
+    top: "50%",
+    right: "0",
+    transform: "translateY(-50%) rotate(90deg)",
+    transformOrigin: "right center",
+    display: "flex",
+    gap: "10px",
+    background: "rgba(0, 0, 0, 0.5)",
+    padding: "10px",
+    borderRadius: "10px",
+  }}
+>
           <button onClick={toggleAnimation}>
             {isPlaying ? "Pause Animation" : "Play Animation"}
           </button>
