@@ -166,14 +166,13 @@ const pauseVideo = () => {
           <button onClick={resetModel}>Reset Model</button>
           <button onClick={toggleHandles}>{showHandles ? "Done" : "Adjust"}</button>
           <button onClick={exitAR}>Exit</button>
-            {showIns && (
-              <>
-                <button onClick={playVideo}>Play Video</button>
-                <button onClick={pauseVideo}>Pause Video</button>
+            
+        </div>
+        {showIns && (
               <div
               style={{
                 position: "absolute",
-                botton: 20,
+                bottom: 20,
                 left: "50%",
                 transform: "translateX(-50%)",
                 display: "flex",
@@ -183,13 +182,14 @@ const pauseVideo = () => {
                 borderRadius: "10px",
               }}
             >
+                <button onClick={playVideo}>Play Video</button>
+                <button onClick={pauseVideo}>Pause Video</button>
               <button onClick={nextImage}>Next</button>
               <button onClick={prevImage}>Prev</button>
             </div>
-            </>
+          
 
             )}
-        </div>
       </XRDomOverlay>
     </>
 
