@@ -9,6 +9,7 @@ import { useXR, XRDomOverlay } from "@react-three/xr";
 import * as THREE from "three";
 
 const AnimatedModel = ({position,fault,scale }) => {
+  console.log(position)
   const[showIns,setShowIns]=useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showHandles, setShowHandles] = useState(0);

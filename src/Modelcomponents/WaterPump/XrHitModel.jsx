@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useXR, useXRHitTest } from "@react-three/xr";
+import { useXR, useXRHitTest,useXRRequestHitTest } from "@react-three/xr";
 import Model from "./Model"; // Your 3D Model
 import { useSearchParams } from "react-router-dom";
 import ModelContainer from "./ModelContainer";
@@ -21,7 +21,7 @@ const XrHitModel = () => {
   }, []);
 
   // Use hit testing to update the reticle's position
-  useXRHitTest((hitMatrix) => {
+  useXRRequestHitTest((hitMatrix) => {
     // if (reticleRef.current) {
       alert("hit detection working",hitMatrix)
       console.log("testing")
