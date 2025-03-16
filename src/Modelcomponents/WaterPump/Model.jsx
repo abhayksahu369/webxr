@@ -16,7 +16,7 @@ const AnimatedModel = ({position,fault }) => {
   const positionRef = useRef(position);
   const mixer = useRef(null);
   const action = useRef(null);
-  const { scene, animations } = useGLTF("/factory.glb");
+  const { scene, animations } = useGLTF("/waterpump/waterpump.glb");
   
   useEffect(() => {
     if (animations.length) {

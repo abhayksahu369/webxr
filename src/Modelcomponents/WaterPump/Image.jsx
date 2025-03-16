@@ -6,9 +6,9 @@ import { XRDomOverlay } from "@react-three/xr";
 
 export default function Image({ position, scale }) {
   const images = [
-    "/3ds.jpg",
-    "/web.jpg",
-    "/webxr.jpg",
+    "waterpump/instructions/images/3ds.jpg",
+    "waterpump/instructions/images/web.jpg",
+    "waterpump/instructions/images/webxr.jpg",
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
   const textureRef = useRef(new THREE.TextureLoader().load(images[0])); // Load once

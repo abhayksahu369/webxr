@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-import ModelContainer from './ModelContainer'
+import ModelContainer from './Modelcomponents/WaterPump/ModelContainer'
+import { BrowserRouter, Routes,Route } from 'react-router-dom'
 
 
 function App() {
@@ -8,7 +9,13 @@ function App() {
 
   return (
     <>
-     <ModelContainer/>
+    <BrowserRouter>
+    <Routes>
+    <Route path="/" element={<ModelContainer/>}/>
+    </Routes>
+    </BrowserRouter>
+    
+     
     </>
   )
 }

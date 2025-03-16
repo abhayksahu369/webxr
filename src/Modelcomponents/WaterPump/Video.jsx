@@ -12,7 +12,7 @@ export default function Video({ position }) {
   useEffect(() => {
     // Create a video element
     const video = document.createElement("video");
-    video.src = "/test.mp4"; // Place video in the public folder
+    video.src = "waterpump/instructions/videos/test.mp4"; // Place video in the public folder
     video.crossOrigin = "anonymous";
     video.loop = true;
     video.muted = false; // Change to true if needed
