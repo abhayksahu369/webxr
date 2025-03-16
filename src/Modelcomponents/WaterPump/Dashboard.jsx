@@ -88,9 +88,9 @@ const SensorDashboard = () => {
 
     // Create or update a chart using D3
     const createOrUpdateChart = (element, data, metric, color) => {
-        // const margin = { top: 20, right: 30, bottom: 30, left: 50 };
-        // const width = element.clientWidth - margin.left - margin.right;
-        // const height = 200 - margin.top - margin.bottom;
+        const margin = { top: 20, right: 30, bottom: 30, left: 50 };
+        const width = element.clientWidth - margin.left - margin.right;
+        const height = 200 - margin.top - margin.bottom;
 
         // Clear existing chart
         d3.select(element).selectAll("*").remove();
@@ -218,7 +218,7 @@ const SensorDashboard = () => {
             </div>
 
 
-            <div style={{ display: "flex", gap: "5px", padding: "5px", width: "100vw", height: "10vh", position: "fixed", bottom: 100 ,background:"blue"}}>
+            <div >
                 <div style={{  textAlign: "center" }}>
                     <h3 style={{ fontSize: "8px", marginBottom: "2px" }}>Temp (°C)</h3>
                     <div ref={tempChartRef} style={{ width: "100%", height: "80%" }}></div>
