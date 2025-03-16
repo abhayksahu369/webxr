@@ -15,6 +15,7 @@ export default function Test() {
       <XRHitTest
         onResults={(results, getWorldMatrix) => {
           if (results.length > 0 && meshRef.current) {
+            alert("detected")
             getWorldMatrix(matrixHelper, results[0]);
             const newPosition = new THREE.Vector3().setFromMatrixPosition(matrixHelper);
 
