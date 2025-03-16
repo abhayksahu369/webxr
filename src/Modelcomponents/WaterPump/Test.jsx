@@ -14,22 +14,28 @@ export default function Test() {
       {/* Hit Test Logic */}
       <XRHitTest
         onResults={(results, getWorldMatrix) => {
-            console.log(results);
-          if (results.length > 0) {
+          if (results.length > 0 && meshRef.current) {
             getWorldMatrix(matrixHelper, results[0]);
             const newPosition = new THREE.Vector3().setFromMatrixPosition(matrixHelper);
-            setHitPosition(newPosition);
+
+            // Slight height adjustment
+            newPosition.y += 0.05;
+
+            console.log("Hit Test Position:", newPosition);
+
+            // Directly update the mesh position (avoids re-render)
+            meshRef.current.position.copy(newPosition);
           }
         }}
       />
 
       {/* Sphere Appears Where Hit Test Detects */}
-      {hitPosition && (
-        <mesh ref={meshRef} position={hitPosition}>
+     
+        <mesh ref={meshRef} >
           <sphereGeometry args={[0.1, 32, 32]} />
           <meshStandardMaterial color="red" />
         </mesh>
-      )}
+
     </>
   );
 }
