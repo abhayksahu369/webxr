@@ -3,7 +3,6 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useRef, useEffect, useState, useMemo } from "react";
 import { PivotHandles } from "@react-three/handle";
 import { useAnimations, useGLTF } from "@react-three/drei";
-import Image from "./Image";
 import Video from "./Video";
 import { useXR, XRDomOverlay } from "@react-three/xr";
 import * as THREE from "three";
@@ -101,6 +100,25 @@ const pauseVideo = () => {
           setShowHandles(0)
         }
       };
+  //***************************image section***********************/
+  const images = [
+      "waterpump/instructions/images/3ds.jpg",
+      "waterpump/instructions/images/web.jpg",
+      "waterpump/instructions/images/webxr.jpg",
+    ];
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const textureRef = useRef(new THREE.TextureLoader().load(images[0])); // Load once
+  
+    useEffect(() => {
+      textureRef.current = new THREE.TextureLoader().load(images[currentIndex]);
+    }, [currentIndex]); 
+    const nextImage = () => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    };
+  
+    const prevImage = () => {
+      setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    };
 
     return (
     <>
@@ -108,7 +126,10 @@ const pauseVideo = () => {
         {showIns ? (
           <>
              <PivotHandles size={showHandles} position={[-0.3, 1, 0]} >
-             <Image />
+             <mesh scale={0.1}>
+                     <planeGeometry args={[5, 3]} />
+                     <meshBasicMaterial map={textureRef.current} side={THREE.DoubleSide} depthWrite={false} />
+              </mesh>
              </PivotHandles>
            
             <PivotHandles size={showHandles} position={[0.3, 1, 0]} >
@@ -143,13 +164,30 @@ const pauseVideo = () => {
             {isPlaying ? "Pause Animation" : "Play Animation"}
           </button>
           <button onClick={resetModel}>Reset Model</button>
-          <button onClick={toggleHandles}>{showHandles ? "done" : "adjust"}</button>
-          <button onClick={exitAR}>EXIT</button>
+          <button onClick={toggleHandles}>{showHandles ? "Done" : "Adjust"}</button>
+          <button onClick={exitAR}>Exit</button>
             {showIns && (
               <>
                 <button onClick={playVideo}>Play Video</button>
                 <button onClick={pauseVideo}>Pause Video</button>
-              </>
+              <div
+              style={{
+                position: "absolute",
+                botton: 20,
+                left: "50%",
+                transform: "translateX(-50%)",
+                display: "flex",
+                gap: "10px",
+                background: "rgba(0, 0, 0, 0.5)",
+                padding: "10px",
+                borderRadius: "10px",
+              }}
+            >
+              <button onClick={nextImage}>Next</button>
+              <button onClick={prevImage}>Prev</button>
+            </div>
+            </>
+
             )}
         </div>
       </XRDomOverlay>

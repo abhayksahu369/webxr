@@ -29,10 +29,10 @@ export default function HitTestScene() {
   }, [requestHitTest]);
 
   const placeModel = () => {
-    if (torusRef.current && modelRef.current) {
+    if (torusRef.current ) {
 
       setPosition([...torusRef.current.position]); // Place model where torus is
-      modelRef.current.visible = true; // Show model when tapped
+
     }
   };
 
@@ -45,9 +45,8 @@ export default function HitTestScene() {
       </mesh>
 
       {/* 3D Model (Initially hidden) */}
-      <group ref={modelRef} scale={0.05}  visible={false}>
-        <Model position={position} />
-      </group>
+    
+        {position&&<Model position={position}  scale={0.04}/>}
     </>
   );
 }
