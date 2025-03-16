@@ -1,35 +1,62 @@
 import { Canvas } from "@react-three/fiber";
-import {  XR, useXRRequestHitTest } from "@react-three/xr";
-import { useState, useRef, useEffect } from "react";
+import { ARButton, XR, useXRRequestHitTest } from "@react-three/xr";
+import { useRef, useEffect, Suspense } from "react";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 
 
+export default function HitTestScene() {
+  const torusRef = useRef(); // Ref for torus
+  const modelRef = useRef(); // Ref for model
+  const requestHitTest = useXRRequestHitTest();
 
-export default function HitTestRing() {
-    const ringRef = useRef(); // Using ref instead of state
-    const requestHitTest = useXRRequestHitTest();
-  
-    useEffect(() => {
-      const updatePosition = async () => {
-        const hitTest = await requestHitTest("viewer");
-        if (hitTest?.results.length) {
-          const matrix = new THREE.Matrix4();
-          hitTest.getWorldMatrix(matrix, hitTest.results[0]);
-          const pos = new THREE.Vector3().setFromMatrixPosition(matrix);
-          
-          if (ringRef.current) {
-            ringRef.current.position.copy(pos); // Directly update position
-          }
+  useEffect(() => {
+    const updatePosition = async () => {
+      const hitTest = await requestHitTest("viewer");
+      if (hitTest?.results.length) {
+        const matrix = new THREE.Matrix4();
+        hitTest.getWorldMatrix(matrix, hitTest.results[0]);
+        const pos = new THREE.Vector3().setFromMatrixPosition(matrix);
+
+        if (torusRef.current) {
+          torusRef.current.position.copy(pos); // Move torus to valid position
         }
-        requestAnimationFrame(updatePosition);
-      };
-      updatePosition();
-    }, [requestHitTest]);
-  
-    return (
-      <mesh ref={ringRef} rotation={[-Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[0.1, 0.02, 16, 100]} />
-        <meshBasicMaterial color="yellow" />
+      }
+      requestAnimationFrame(updatePosition);
+    };
+    updatePosition();
+  }, [requestHitTest]);
+
+  const placeModel = () => {
+    if (torusRef.current && modelRef.current) {
+      modelRef.current.position.copy(torusRef.current.position); // Place model where torus is
+      modelRef.current.visible = true; // Show model when tapped
+    }
+  };
+
+  return (
+    <>
+      {/* Ring (Torus) to tap on */}
+      <mesh ref={torusRef} onClick={placeModel} rotation={[-Math.PI / 2, 0, 0]} >
+        <ringGeometry args={[0.1, 0.25, 32]} />
+        <meshStandardMaterial color="yellow" />
       </mesh>
-    );
-  }
+
+      {/* 3D Model (Initially hidden) */}
+      <group ref={modelRef} scale={0.1}  visible={false}>
+        <Model />
+      </group>
+    </>
+  );
+}
+
+function Model() {
+  const gltf = useRef(null);
+  useEffect(() => {
+    new GLTFLoader().load("/waterpump/waterpump.glb", (loadedGltf) => {
+      gltf.current = loadedGltf.scene;
+    });
+  }, []);
+
+  return gltf.current ? <primitive object={gltf.current} /> : null;
+}
