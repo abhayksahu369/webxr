@@ -27,8 +27,8 @@ export default function HitTestComponent() {
 
 function Ring({ onClick, position }) {
   return (
-    <mesh position={position} onClick={onClick}>
-      <ringGeometry args={[0.03, 0.05, 32]} />
+    <mesh position={position}  rotation={[-Math.PI / 2, 0, 0]} onClick={onClick}>
+      <ringGeometry args={[0.1, 0.25, 32]} />
       <meshBasicMaterial color="red" />
     </mesh>
   );
