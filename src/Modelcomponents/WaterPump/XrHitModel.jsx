@@ -23,8 +23,9 @@ const XrHitModel = () => {
   // Use hit testing to update the reticle's position
   useXRHitTest((hitMatrix) => {
     // if (reticleRef.current) {
+      alert("hit detection working",hitMatrix)
       console.log("testing")
-    console.log(hitMatrix)
+      console.log(hitMatrix)
       hitMatrix.decompose(
         reticleRef.current.position,
         reticleRef.current.quaternion,
@@ -33,9 +34,7 @@ const XrHitModel = () => {
     // }
     reticleRef.current.rotation.set(-Math.PI / 2, 0, 0);
   });
-  if (reticleRef.current) {
-    reticleRef.current.position.set(0, 0, -1); // Default position in front
-  }
+ 
   if(reticleRef.current){
     console.log(reticleRef.current.position)
   }
