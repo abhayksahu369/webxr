@@ -246,7 +246,7 @@ const SensorDashboard = () => {
                   </div>
               </div>
         {/* Charts */}
-        <div style={{height:"100px"}}>
+        <div style={{height:"50px"}}>
                   <div>
                       <h3>Temperature (°C)</h3>
                       <div ref={tempChartRef}></div>
