@@ -8,10 +8,10 @@ import Video from "./Video";
 import { useXR, XRDomOverlay } from "@react-three/xr";
 import * as THREE from "three";
 
-const AnimatedModel = ({position,fault }) => {
+const AnimatedModel = ({position,fault,scale }) => {
   const[showIns,setShowIns]=useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showHandles, setShowHandles] = useState(true);
+  const [showHandles, setShowHandles] = useState(0);
   const {session}=useXR();
   const positionRef = useRef(position);
   const mixer = useRef(null);
@@ -94,10 +94,11 @@ const pauseVideo = () => {
     
     }
     const toggleHandles = () => {
-        if (modelRef.current) {
-          positionRef.current = modelRef.current.position.toArray(); // Store current position
+        if(showHandles==0){
+          setShowHandles(0.5)
+        }else{
+          setShowHandles(0)
         }
-        setShowHandles((prev) => !prev);
       };
 
     return (
@@ -105,24 +106,22 @@ const pauseVideo = () => {
       <group position={position}>
         {showIns ? (
           <>
-             <PivotHandles size={0.5} position={[-0.3, 1, 0]} >
+             <PivotHandles size={showHandles} position={[-0.3, 1, 0]} >
              <Image />
              </PivotHandles>
            
-            <PivotHandles size={0.5} position={[0.3, 1, 0]} >
+            <PivotHandles size={showHandles} position={[0.3, 1, 0]} >
             <Video ref={videoRef} />
             </PivotHandles>
            
 
           </>
         ) : <></>}
-        {showHandles ? (
-          <PivotHandles size={0.5}>
-            <primitive object={scene} scale={0.04} onPointerDown={handlePointerDown} />
+    
+          <PivotHandles size={showHandles}>
+            <primitive object={scene} scale={scale} onPointerDown={handlePointerDown}  rotation={[0, Math.PI, 0]} />
           </PivotHandles>
-        ) : (
-          <primitive object={gltf.scene} scale={0.04} onPointerDown={handlePointerDown} />
-        )}
+
       </group>
 
       <XRDomOverlay>
