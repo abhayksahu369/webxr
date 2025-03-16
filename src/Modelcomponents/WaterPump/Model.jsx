@@ -154,7 +154,6 @@ const pauseVideo = () => {
             transform: "rotate(90deg)",
             position: "absolute",
             top: 20,
-            left: "50%",
             display: "flex",
             gap: "10px",
             background: "rgba(0, 0, 0, 0.5)",
