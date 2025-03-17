@@ -164,13 +164,11 @@ const pauseVideo = () => {
             borderRadius: "10px",
           }}
         >
-          <button onClick={toggleAnimation}>
-            {isPlaying ? "Pause Animation" : "Play Animation"}
-          </button>
-          <img src="/icons/reset.png"  width={24} height={24} onClick={resetModel}/>
-          <button onClick={toggleHandles}>{showHandles ? "Done" : "Adjust"}</button>
-          <button onClick={()=>{setShowDashboard(!showDashboard)}}>Real-time Analysis</button>
-          <button onClick={exitAR}>Exit</button>
+          <img src="/icons/3d-modeling.png"  width={50} height={50} onClick={toggleAnimation}/>
+          <img src="/icons/reset.png"  width={50} height={50} onClick={resetModel}/>
+          <img src="/icons/slider.png"  width={50} height={50} onClick={toggleHandles}/>
+          <img src="/icons/analysis.png"  width={50} height={50} onClick={()=>{setShowDashboard(!showDashboard)}}/>
+          <img src="/icons/exit.png"  width={50} height={50} onClick={exitAR}/>
             
         </div>
         {!showDashboard&&showIns && (
