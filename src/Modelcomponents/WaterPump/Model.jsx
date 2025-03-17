@@ -163,16 +163,16 @@ const pauseVideo = () => {
             borderRadius: "10px",
           }}
         >
-          <button onClick={toggleAnimation}>
+          {/* <button onClick={toggleAnimation}>
             {isPlaying ? "Pause Animation" : "Play Animation"}
           </button>
-          <button onClick={resetModel}>Reset Model</button>
+          <button onClick={resetModel}>Reset Model</button> */}
           <button onClick={toggleHandles}>{showHandles ? "Done" : "Adjust"}</button>
-          <button onClick={exitAR}>Exit</button>
-          <button onClick={()=>{setShowDashboard(!showDashboard)}}>Real-time analysis</button>
+          {/* <button onClick={exitAR}>Exit</button>
+          <button onClick={()=>{setShowDashboard(!showDashboard)}}>Real-time analysis</button> */}
             
         </div>
-        {!showDashboard&&showIns && (
+        {/* {!showDashboard&&showIns && (
               <div
               style={{
                 position: "absolute",
@@ -193,7 +193,7 @@ const pauseVideo = () => {
             </div>
           
 
-            )}
+            )} */}
       </XRDomOverlay>
     </>
 
