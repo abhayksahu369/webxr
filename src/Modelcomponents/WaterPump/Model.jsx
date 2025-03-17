@@ -105,9 +105,17 @@ const pauseVideo = () => {
       };
   //***************************image section***********************/
   const images = [
-      "waterpump/instructions/images/3ds.jpg",
-      "waterpump/instructions/images/web.jpg",
-      "waterpump/instructions/images/webxr.jpg",
+      "/centrifugalpump/instructions/images/1.png",
+      "/centrifugalpump/instructions/images/2.png",
+      "/centrifugalpump/instructions/images/3.png",
+      "/centrifugalpump/instructions/images/4.png",
+      "/centrifugalpump/instructions/images/5.png",
+      "/centrifugalpump/instructions/images/6.png",
+      "/centrifugalpump/instructions/images/7.png",
+      "/centrifugalpump/instructions/images/8.png",
+      "/centrifugalpump/instructions/images/9.png",
+      "/centrifugalpump/instructions/images/10.png",
+      
     ];
     const [currentIndex, setCurrentIndex] = useState(0);
     const textureRef = useRef(new THREE.TextureLoader().load(images[0])); // Load once

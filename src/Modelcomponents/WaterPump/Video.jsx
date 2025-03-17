@@ -6,7 +6,7 @@ const Video = forwardRef(({ position }, videoRef) => {
 
   useEffect(() => {
     const video = document.createElement("video");
-    video.src = "waterpump/instructions/videos/test.mp4";
+    video.src = "/centrifugalpump/instructions/videos/centrifugal.mp4";
     video.crossOrigin = "anonymous";
     video.loop = true;
     video.muted = false; // Change to true if needed
