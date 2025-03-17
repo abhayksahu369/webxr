@@ -188,7 +188,7 @@ const pauseVideo = () => {
               <img src="/icons/left-arrow.png"  width={50} height={50} onClick={prevImage}/>
               <img src="/icons/right.png"  width={50} height={50} onClick={nextImage}/>
               <img src="/icons/play.png"  width={50} height={50} onClick={playVideo}/>
-              <img src="/icons/pause-button.png"  width={30} height={30} onClick={pauseVideo}/>
+              <img src="/icons/pause-button.png"  width={40} height={40} onClick={pauseVideo}/>
             </div>
           
 
