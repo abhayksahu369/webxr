@@ -185,10 +185,10 @@ const pauseVideo = () => {
                 borderRadius: "10px",
               }}
             >
-              <button onClick={prevImage}>Prev</button>
-              <button onClick={nextImage}>Next</button>
-              <button onClick={playVideo}>Play Video</button>
-              <button onClick={pauseVideo}>Pause Video</button>
+              <img src="/icons/left-arrow.png"  width={50} height={50} onClick={prevImage}/>
+              <img src="/icons/right.png"  width={50} height={50} onClick={nextImage}/>
+              <img src="/icons/play.png"  width={50} height={50} onClick={playVideo}/>
+              <img src="/icons/pause-button.png"  width={50} height={50} onClick={pauseVideo}/>
             </div>
           
 
