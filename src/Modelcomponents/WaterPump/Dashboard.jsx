@@ -217,7 +217,7 @@ const SensorDashboard = () => {
             </div>
 
 
-            <div style={{background:"black",opacity:0.2}}>
+            <div style={{backgroundColor: rgba(0, 0, 0, 0.5)}}>
                 <div style={{  textAlign: "center",marginTop:"150px" }}>
                     <h3 style={{ fontSize: "15px" }}>Temp (°C)</h3>
                     <div ref={tempChartRef} style={{ width: "100%", height: "70%" }}></div>
