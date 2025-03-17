@@ -136,14 +136,14 @@ const pauseVideo = () => {
       <group position={position}>
         {showIns ? (
           <>
-             <PivotHandles size={showHandles} position={[-0.3, 1, 0]} >
-             <mesh scale={0.1}>
+             <PivotHandles size={showHandles} position={[-0.6, 1.3, -0.4]} >
+             <mesh scale={0.3}>
                      <planeGeometry args={[5, 3]} />
                      <meshBasicMaterial map={textureRef.current} side={THREE.DoubleSide} depthWrite={false} />
               </mesh>
              </PivotHandles>
            
-            <PivotHandles size={showHandles} position={[0.3, 1, 0]} >
+            <PivotHandles size={showHandles} position={[1, 1.3, -0.4]} >
             <Video ref={videoRef} />
             </PivotHandles>
            

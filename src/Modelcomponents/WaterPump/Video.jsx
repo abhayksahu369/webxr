@@ -20,7 +20,7 @@ const Video = forwardRef(({ position }, videoRef) => {
   return (
     <group position={position}>
       {videoTexture && (
-        <mesh scale={0.2} renderOrder={1}>
+        <mesh scale={0.5} renderOrder={1}>
           <planeGeometry args={[3, 2]} />
           <meshBasicMaterial
             map={videoTexture}
