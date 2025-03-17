@@ -167,10 +167,10 @@ const pauseVideo = () => {
           <button onClick={toggleAnimation}>
             {isPlaying ? "Pause Animation" : "Play Animation"}
           </button>
-          <button onClick={resetModel}>Reset Model</button>
+          <img src="/icons/reset.png"  width={24} height={24} onClick={resetModel}/>
           <button onClick={toggleHandles}>{showHandles ? "Done" : "Adjust"}</button>
+          <button onClick={()=>{setShowDashboard(!showDashboard)}}>Real-time Analysis</button>
           <button onClick={exitAR}>Exit</button>
-          <button onClick={()=>{setShowDashboard(!showDashboard)}}>Real-time analysis</button>
             
         </div>
         {!showDashboard&&showIns && (
@@ -187,10 +187,10 @@ const pauseVideo = () => {
                 borderRadius: "10px",
               }}
             >
-              <button onClick={playVideo}>Play Video</button>
-              <button onClick={pauseVideo}>Pause Video</button>
               <button onClick={prevImage}>Prev</button>
               <button onClick={nextImage}>Next</button>
+              <button onClick={playVideo}>Play Video</button>
+              <button onClick={pauseVideo}>Pause Video</button>
             </div>
           
 
