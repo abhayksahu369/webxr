@@ -60,8 +60,8 @@ const XrHitModel = () => {
         )
       }
       
-      {session&&modelPosition&&<Model position={modelPosition} fault={faultyCom} scale={0.04} />}
-      {!session&&<Model scale={0.04} position={[0,0,0]} fault={faultyCom} />}
+      {session&&modelPosition&&<Model position={modelPosition} fault={faultyCom} scale={0.02} />}
+      {!session&&<Model scale={0.02} position={[0,0,0]} fault={faultyCom} />}
     </>
   );
 };
