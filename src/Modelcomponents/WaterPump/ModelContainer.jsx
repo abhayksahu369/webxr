@@ -15,9 +15,9 @@ export default function ModelContainer() {
         <XR store={store} sessionInit={{ requiredFeatures: ["hit-test"] }}>
           <OrbitControls />
           <PointerEvents />
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[5, 5, 5]} intensity={2} />
-          <directionalLight position={[-5, -5, 5]} intensity={1.5} />
+          <ambientLight intensity={0.1} />
+          <directionalLight position={[5, 5, 5]} intensity={1} />
+          <directionalLight position={[-5, -5, 5]} intensity={1} />
           <pointLight position={[0, 2, 2]} intensity={1.5} />
 
           

@@ -18,7 +18,7 @@ const AnimatedModel = ({position,fault,scale }) => {
   const positionRef = useRef(position);
   const mixer = useRef(null);
   const action = useRef(null);
-  const { scene, animations } = useGLTF("/waterpump/waterpump.glb");
+  const { scene, animations } = useGLTF("/centrifugalpump/cp10.glb");
   const videoRef = useRef(null);
   const[showDashboard,setShowDashboard]=useState(false);
 
@@ -48,6 +48,7 @@ const pauseVideo = () => {
       mixer.current.update(delta);
     }
   });
+  
   
   
   scene.traverse((child) => {
@@ -168,11 +169,11 @@ const pauseVideo = () => {
           </button>
           <button onClick={resetModel}>Reset Model</button>
           <button onClick={toggleHandles}>{showHandles ? "Done" : "Adjust"}</button>
-          {/* <button onClick={exitAR}>Exit</button>
-          <button onClick={()=>{setShowDashboard(!showDashboard)}}>Real-time analysis</button> */}
+          <button onClick={exitAR}>Exit</button>
+          <button onClick={()=>{setShowDashboard(!showDashboard)}}>Real-time analysis</button>
             
         </div>
-        {/* {!showDashboard&&showIns && (
+        {!showDashboard&&showIns && (
               <div
               style={{
                 position: "absolute",
@@ -188,12 +189,12 @@ const pauseVideo = () => {
             >
               <button onClick={playVideo}>Play Video</button>
               <button onClick={pauseVideo}>Pause Video</button>
-              <button onClick={nextImage}>Next</button>
               <button onClick={prevImage}>Prev</button>
+              <button onClick={nextImage}>Next</button>
             </div>
           
 
-            )} */}
+            )}
       </XRDomOverlay>
     </>
 
