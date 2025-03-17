@@ -219,12 +219,12 @@ const SensorDashboard = () => {
 
             <div style={{backgroundColor: "rgba(0, 0, 0, 0.5)"}}>
                 <div style={{  textAlign: "center",marginTop:"150px" }}>
-                    <h3 style={{ fontSize: "15px" }}>Temp (°C)</h3>
+                    <h3 style={{ fontSize: "15px",color:"white" }}>Temp (°C)</h3>
                     <div ref={tempChartRef} style={{ width: "100%", height: "70%" }}></div>
                 </div>
 
                 <div style={{  textAlign: "center" }}>
-                    <h3 style={{ fontSize: "15px" }}>Humidity (%)</h3>
+                    <h3 style={{ fontSize: "15px",color:"white" }}>Humidity (%)</h3>
                     <div ref={humidityChartRef} style={{ width: "100%", height: "70%" }}></div>
                 </div>
 
